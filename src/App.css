@@ -1,0 +1,286 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #edf8f3;
+  font-family: "Poppins", sans-serif !important;
+}
+input.block, select.block{
+  padding: 5px;
+}
+.navbar-brand {
+  max-width: 200px;
+  filter: invert(100%);
+}
+.container {
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.homesection {
+  background-image: url(./assets/image/homenbg.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 120px;
+  position: relative;
+  z-index: 1;
+}
+input {
+  outline: none !important;
+}
+
+input:focus,
+input:focus-within,
+input:active {
+  outline: none;
+}
+img {
+  max-width: 100%;
+}
+.mobileotpbox {
+  border: 1px solid #0d1820;
+  border-radius: 5rem;
+  width: fit-content;
+  padding: 5px;
+}
+.mobileotpbox .mobilecode {
+  position: relative;
+  top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.featurepara {
+  width: calc(100% - 60px);
+}
+.sectiontitle {
+  font-size: 3rem;
+  font-weight: 700;
+  position: relative;
+}
+.conditonsbg {
+  background: url("./assets/image/bodybg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 140vh;
+}
+.conditionsul li {
+  list-style-image: url("./assets/image/checkmark.png");
+  background-position: left center;
+}
+.invoices.v1 .invoices-card {
+  height: 100%;
+  padding: 86px 60px 75px 60px;
+  border-radius: 15px;
+
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.invoices.v1 .invoices-card .invoices-card-head {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.read-more.v2 {
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  line-height: 60px;
+  background-color: #00c195;
+  text-align: center;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 800;
+  border-radius: 50%;
+}
+.invoices.v1 .invoices-card:hover {
+  background-color: #00c195;
+  color: #fff;
+}
+.invoices.v1 .invoices-card:hover .read-more.v2 {
+  background-color: #fff;
+  color: #00c195;
+}
+
+.invoices.v1 .invoices-card .numbber-stitle {
+  text-align: right;
+}
+
+.invoices.v1 .invoices-card.invoices-card-small .card-title {
+  font-size: 28px;
+  line-height: 36px;
+}
+.invoices.v1 .invoices-card .invoices-card-head ~ .card-title {
+  margin-top: 38px;
+}
+.invoices.v1 .invoices-card .card-title {
+  font-weight: 500;
+  letter-spacing: -0.56px;
+}
+.invoices.v1 .invoices-card .card-title ~ .card-para {
+  margin-top: 38px;
+}
+.invoices.v1 .invoices-card .card-para {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+  color: var(--color-black);
+}
+.invoicesection {
+  margin-top: -200px;
+}
+.invoices.v1 .invoices-card:hover h2,
+.invoices.v1 .invoices-card:hover p {
+  color: #fff;
+}
+
+.service_card {
+  position: relative;
+  z-index: 99;
+}
+.service_card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url("./assets/image/servicebg.png");
+  background-position: 80px 45px;
+  background-repeat: no-repeat;
+  background-size: 30vw auto;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: overlay;
+  z-index: -1;
+}
+
+.service_card h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.service_card p {
+  font-size: 16px;
+  font-weight: 400;
+}
+.customer_bg {
+  max-width: 200px;
+}
+.footerbg {
+  background-color: #171d24;
+  background-image: url("./assets/image/footer-bg.png");
+
+  /* background-image: url(https://wordpress-theme.spider-themes.net/banca/wp-content/uploads/2021/07/footer-bg-2.png); */
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 100px 0;
+}
+.element-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+footer ul {
+  padding: 0;
+}
+footer ul li a {
+  display: block;
+  padding: 5px 0;
+  font: 14px;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
+.footerabout h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.footerabout p {
+  font-size: 14px;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+.loanapplyform .formlabel {
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  display: block;
+}
+.instuction li {
+  font-size: 16px;
+  font-weight: 200;
+  padding: 0.4rem 0;
+  padding-left: 2rem;
+  background-image: url('./assets/image/checkmark.png');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+}
+
+.loanapplyform h4{
+  font-size: 18px;
+  display: block;
+  position: relative;
+  font-weight: 600;
+  color: #00c195;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+ 
+}
+.loanapplyform h4::before{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 1px;
+  border-top: 1px solid #0d1820;
+}
+
+.loanapplyform h4::after{
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #0d1820;
+}
+.loanapplyform{
+  max-width: 60%;
+  margin: 0 auto;
+}
+.stepsul li:not(:last-of-type):before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  height: 100%;
+  border-left: 1px solid #00c195;
+  top: 26px;
+  z-index: -1;
+}
+.stepsul li svg{
+ width: 20px;
+ height: 20px;
+}
+
+@media (max-width:600px) {
+  .loanapplyform{
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
