@@ -1,6 +1,19 @@
+import axios from 'axios';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { base_url, headers } from '../utils';
 
 const BankDetails = (props) => {
+    const[banks, setBanks] = useState([]);
+    const get_banks = async () => {
+        await axios.get(`${base_url}api/banks`, {headers : headers}).then((resp) => {
+            setBanks(resp.data);
+        })
+    }
+    useEffect(() => {
+        get_banks();
+    }, []);
+    
 
     return (
         <>
@@ -18,6 +31,13 @@ const BankDetails = (props) => {
                     <label htmlFor="" className="formlabel">Select Bank</label>
                     <select value={props?.data?.bank_id} name='bank_id' onChange={props.handleformdata} className="w-full min-h-10 border border-gray-500">
                         <option value="">---Select---</option>
+                        {
+                            banks.map((bank) => (
+                                <>
+                                    <option value={bank.id}>{bank.bank}</option>
+                                </>
+                            ))
+                        }
                         <option value="1">State Bank of India</option>
                     </select>
                     <span className="text-danger block text-sm">

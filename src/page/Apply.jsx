@@ -13,7 +13,6 @@ const Apply = () => {
     const location = useLocation();
     const Navigate = useNavigate();
     const mobile = location?.state?.mobile ?? false;
-
     const [fdata, setFdata] = useState({ mobile: mobile });
     const [year, setYear] = useState(null);
     const [month, setMonth] = useState(null);
@@ -22,13 +21,12 @@ const Apply = () => {
     const [pincode, setPincode] = useState(null);
     const [states, setStates] = useState([]);
     const [cities, setCity] = useState([]);
-    const[applied, setApplied] = useState(false);
+    const [applied, setApplied] = useState(false);
     const [pdetails, setPdetails] = useState({ personal: false, document: false, address: false, loan: false, bank: false });
     const dateref = useRef(null);
     const monthref = useRef(null);
 
     const handleformstep = () => {
-
 
         if (!validateErrors()) {
             console.log(errs.length)
@@ -47,14 +45,24 @@ const Apply = () => {
             if (pdetails.loan && !pdetails.bank) {
                 setPdetails({ ...pdetails, personal: true, document: true, address: true, loan: true, bank: true });
             }
-
-
         }
 
     }
+    const check_already_applied = async () => {
+        await axios.post(`${base_url}api/validate-mobile-loan`, { mobile: mobile }, { headers: headers }).then((resp) => {
+            if (resp.data.is_success == "1") {
+                setPdetails({ ...pdetails, personal: true, document: true, address: true, loan: true, bank: true });
+                setApplied(true);
+            }
+        })
+    }
+    useEffect(() => {
+        check_already_applied();
+    }, [])
+    
     const apply_now = async () => {
         await axios.post(`${base_url}api/apply-now`, { ...fdata }, { headers: headers }).then((resp) => {
-            if(resp.data.is_success == "1"){
+            if (resp.data.is_success == "1") {
                 setApplied(true);
             }
         })
@@ -240,7 +248,7 @@ const Apply = () => {
                 console.log(cities)
                 setCity(cities);
                 setStates([postoffice[0].State]);
-               
+
             } else {
                 let obj = {
                     "path": "pincode",
@@ -262,7 +270,7 @@ const Apply = () => {
         setFdata({ ...fdata, 'pincode': pincode })
     }, [pincode])
     const handleformemi = (emi) => {
-        setFdata({...fdata, 'emi' : emi});
+        setFdata({ ...fdata, 'emi': emi });
     }
 
     useEffect(() => {

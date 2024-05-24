@@ -68,7 +68,7 @@ const LoanDetails = (props) => {
                 <div className="form-group">
                     <label className='block formlabel' htmlFor="">Select Loan</label>
                     <select name="loan_type" onChange={selectloanhandle} id="" className="w-full min-h-10 outline-none rounded-md border border-gray-500">
-                        <option value="" selected disabled>---Select---</option>
+                        <option value="" selected>---Select---</option>
                         {
                             types.map((loan) => (
                                 <>

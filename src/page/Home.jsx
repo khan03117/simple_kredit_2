@@ -92,10 +92,10 @@ const Home = () => {
                             <DialogHeader>Verify OTP</DialogHeader>
                             <DialogBody >
                                 <div className="grid grid-cols-4 gap-3">
-                                    <input type="text" name="otp1" ref={ref1} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp2" ref={ref2} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp3" ref={ref3} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp4" ref={ref4} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="text" name="otp1" maxLength={1} ref={ref1} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="text" name="otp2" maxLength={1} ref={ref2} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="text" name="otp3" maxLength={1} ref={ref3} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="text" name="otp4" maxLength={1} ref={ref4} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
                                 </div>
                             </DialogBody>
                             <DialogFooter>
