@@ -1,19 +1,22 @@
 
 import homeimg from '../assets/image/homeimg.png';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Featurebox from '../components/Featurebox';
 import applyimg from '../assets/image/visa_card.png'
 import UseBox from '../components/UseBox';
 import ServiceCard from '../components/ServiceCard';
-import customerimg from '../assets/image/Costumer.png';
+// import customerimg from '../assets/image/Costumer.png';
 import axios from 'axios';
 import { base_url, headers } from '../utils';
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from '@material-tailwind/react';
 import { useNavigate } from 'react-router';
+import LoanCalculater from '../components/LoanCalculater';
+import contactimg from '../assets/image/about.webp'
 
 const Home = () => {
     const [mobile, setMobile] = useState(null);
+    const [loans, setLoans] = useState([]);
     const [open, setOpen] = useState(false);
     const [otp1, setOtp1] = useState(null);
     const [otp2, setOtp2] = useState(null);
@@ -62,9 +65,22 @@ const Home = () => {
             })
         }
     }
+    const getloans = async () => {
+
+        await axios.get(`${base_url}api/loans`, {
+            headers: headers
+        }).then((resp) => {
+            setLoans(resp.data);
+        })
+
+    }
     const handleOpen = () => {
         setOpen(!open);
     }
+    useEffect(() => {
+        getloans();
+    }, [])
+
     const verify_otp = () => {
         if (otp1 && otp2 && otp3 && otp4) {
             const otp = otp1 + otp2 + otp3 + otp4;
@@ -82,7 +98,7 @@ const Home = () => {
             {
                 open && (
                     <>
-                        <Dialog dismiss={
+                        <Dialog className='customdialog' dismiss={
                             {
                                 enabled: false,
                                 escapeKey: false
@@ -90,12 +106,12 @@ const Home = () => {
 
                         } open={open} handler={handleOpen}>
                             <DialogHeader>Verify OTP</DialogHeader>
-                            <DialogBody >
+                            <DialogBody className='customdialogbody' >
                                 <div className="grid grid-cols-4 gap-3">
-                                    <input type="text" name="otp1" maxLength={1} ref={ref1} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp2" maxLength={1} ref={ref2} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp3" maxLength={1} ref={ref3} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp4" maxLength={1} ref={ref4} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="tel" name="otp1" maxLength={1} ref={ref1} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="tel" name="otp2" maxLength={1} ref={ref2} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="tel" name="otp3" maxLength={1} ref={ref3} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="tel" name="otp4" maxLength={1} ref={ref4} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
                                 </div>
                             </DialogBody>
                             <DialogFooter>
@@ -116,34 +132,31 @@ const Home = () => {
                 )
             }
 
-            <section className="homesection">
+            <section className="homesection lg:py-28 py-20">
                 <div className="container">
-                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
-                        <div className="w-full">
+                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 items-center">
+                        <div className="w-full overflow-hidden">
                             <div className="w-full">
                                 <h4 className="text-sm text-primary">Welcome to SimpleKredit</h4>
-                                <h1 className='text-[4rem] leading-[1.3] text-secondary font-extrabold'>
+                                <h1 className='lg:text-[4rem] text-[2rem] leading-[1.3] text-secondary font-bold'>
                                     Simplify all your banking and loan methods
                                 </h1>
                                 <div className="w-full mt-5">
-                                    <div className="flex items-center gap-5">
-
-
-                                        <div className="inline-flex mobileotpbox">
+                                    <div className="flex flex-wrap items-center gap-4">
+                                        <div className="inline-flex items-center mobileotpbox">
                                             <span className="mobilecode">+91</span>
-                                            <input type="text" value={mobile} maxLength={10} onChange={handlemobile} placeholder='Enter mobile number' className="max-w-full min-w-[100px]" />
-                                            <button onClick={sendotp} className="bg-primary px-5 py-3 rounded-full text-white">
+                                            <input type="tel" value={mobile} maxLength={10} onChange={handlemobile} placeholder='Enter mobile number' className="max-w-full text-sm min-h-10 bg-transparent lg:w-[170px] w-full" />
+                                            <button onClick={sendotp} className="bg-primary px-5 py-3 lg:text-md text-sm text-nowrap rounded-full text-white">
                                                 Apply Now
                                             </button>
                                         </div>
                                         <button to={'/'} className='px-5 py-3 rounded-full bg-secondary text-white'>Check Status</button>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full">
-                            <div className="w-full">
+                        <div className="w-full ">
+                            <div className="w-full lg:block hidden">
                                 <img src={homeimg} alt="" />
                             </div>
                         </div>
@@ -170,15 +183,15 @@ const Home = () => {
                 </section>
 
                 <section className="py-8 pb-16">
-                    <div className="container">
-                        <div className="flex">
-                            <div className="w-1/2">
+                    <div className="container mx-auto">
+                        <div className="grid md:grid-cols-2 grid-cols-1">
+                            <div className="w-full">
                                 <div className="w-full">
-                                    <img src={applyimg} alt="" className='max-w-[450px]' />
+                                    <img src={applyimg} alt="" className='lg:max-w-[450px] max-w-full' />
                                 </div>
                             </div>
-                            <div className="w-1/2">
-                                <div className="w-full">
+                            <div className="w-full">
+                                <div className="w-full lg:bg-transparent bg-white lg:p-0 p-3 rounded-xl">
                                     <h2 className="sectiontitle">
                                         You can apply
                                     </h2>
@@ -213,7 +226,7 @@ const Home = () => {
 
 
             </div>
-            <section className='invoices v1 invoicesection py-16'>
+            <section className='invoices v1 invoicesection lg:py-16 py-6 lg:my-0 my-1'>
                 <div className="container">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="w-full">
@@ -259,21 +272,20 @@ const Home = () => {
                         </h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                        <div className="w-full">
-                            <ServiceCard bg='bg-primary bg-opacity-20' />
-                        </div>
-                        <div className="w-full">
-                            <ServiceCard bg='bg-primary bg-opacity-40' />
-                        </div>
-                        <div className="w-full">
-                            <ServiceCard bg='bg-primary bg-opacity-60' />
-                        </div>
-                        <div className="w-full">
-                            <ServiceCard bg='bg-primary bg-opacity-100' />
-                        </div>
+                        {
+                            loans.map((lon, index) => (
+                                <>
+                                    <div key={index} className="w-full">
+                                        <ServiceCard bg='bg-primary' loan={lon} />
+                                    </div>
+                                </>
+                            ))
+                        }
+
+
                     </div>
 
-                    <div className="w-full flex justify-center">
+                    {/* <div className="w-full flex justify-center">
                         <div className="lg:w-1/2 md:w-2/3">
                             <div className="w-full bg-primary bg-opacity-20 p-5 rounded-full flex items-center gap-4">
                                 <img src={customerimg} alt="" className='customer_bg' />
@@ -283,11 +295,56 @@ const Home = () => {
                                 </p>
                             </div>
                         </div>
+                    </div> */}
+                </div>
+            </section>
+            <section className='bg-white pt-20'>
+                <div className="container mx-auto">
+                    <div className="w-full mb-5">
+                        <h3 className="sectiontitle text-center">
+                            Loan Calculator
+                        </h3>
                     </div>
-
-
-
-
+                    <div className="w-full mb-10">
+                        <LoanCalculater />
+                    </div>
+                </div>
+            </section>
+            <section className='py-10'>
+                <div className="container mx-auto">
+                    <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
+                        <div className="col-span-1">
+                            <div className="w-full p-7 bg-white rounded-lg border-e-4 border-primary contactform">
+                                <div className="form-group mb-4">
+                                    <label className="form-label">Enter Name</label>
+                                    <input type="text" className="form-control" placeholder="Enter your name" />
+                                </div>
+                                <div className="form-group mb-4">
+                                    <label className="form-label">Enter Email</label>
+                                    <input type="email" className="form-control" placeholder="Enter your email" />
+                                </div>
+                                <div className="form-group mb-4">
+                                    <label className="form-label">Enter mobile</label>
+                                    <input type="tel" className="form-control" placeholder="Enter your mobile" />
+                                </div>
+                                <div className="form-group mb-4">
+                                    <label className="form-label">Enter message</label>
+                                    <textarea name="" className='form-control' placeholder='Enter your message' id=""></textarea>
+                                </div>
+                                <div className="form-group">
+                                    <button className="px-10 min-w-48 py-3 bg-primary text-white  rounded-full">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-1">
+                            <div className="w-full mb-10">
+                                <h3 className="sectiontitle">
+                                    Contact Us
+                                </h3>
+                                <img className='lg:max-w-[400px] max-w-full mx-auto' src={contactimg} alt="" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 

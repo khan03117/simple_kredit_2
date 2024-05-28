@@ -38,7 +38,7 @@ const LoanDetails = (props) => {
     }
     useEffect(() => {
         if (loan_type) {
-            calculateEMI(amount, rate, tenure*12);
+            calculateEMI(amount, rate, tenure * 12);
             get_interest_rates();
         }
 
@@ -104,13 +104,14 @@ const LoanDetails = (props) => {
                 </div>
                 <div className="form-group mb-4">
                     <label className='block formlabel' htmlFor="">Enter Rate</label>
+                    <input type="text" value={rate} readOnly className=" block min-h-10 rounded-md border border-gray-500 w-full" />
+                </div>
+                <div className="form-group mb-4">
+                    <label className='block formlabel' htmlFor="">EMI</label>
                     <input type="text" value={emi} readOnly className=" block min-h-10 rounded-md border border-gray-500 w-full" />
                 </div>
 
-                <div className="form-group mb-4">
-                    <label className='block formlabel' htmlFor="">EMI</label>
-                    <input type="text" value={rate} readOnly className=" block min-h-10 rounded-md border border-gray-500 w-full" />
-                </div>
+
 
             </div>
         </>
@@ -120,7 +121,7 @@ LoanDetails.propTypes = {
     handleformdata: PropTypes.func.isRequired,
     data: PropTypes.object,
     errs: PropTypes.array,
-    handleformemi : PropTypes.func.isRequired
+    handleformemi: PropTypes.func.isRequired
 };
 
 

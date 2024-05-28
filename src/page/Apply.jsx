@@ -5,19 +5,23 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import LoanDetails from './LoanDetails';
 import BankDetails from './BankDetails';
-import SuccessApplied from '../components/SuccessApplied';
+import successimg from '../assets/image/verified.png'
 import { useLocation, useNavigate } from 'react-router';
 import { base_url, headers } from '../utils';
+import SuccessApplied from '../components/SuccessApplied';
 
 const Apply = () => {
     const location = useLocation();
     const Navigate = useNavigate();
     const mobile = location?.state?.mobile ?? false;
     const [fdata, setFdata] = useState({ mobile: mobile });
+    const[whatsapp, setWhtasapp] = useState(null);
+    const [pancard, setPancard] = useState(null);
     const [year, setYear] = useState(null);
     const [month, setMonth] = useState(null);
     const [date, setDate] = useState(null);
     const [errs, setErrs] = useState([]);
+    const [msg, setMsg] = useState(null);
     const [pincode, setPincode] = useState(null);
     const [states, setStates] = useState([]);
     const [cities, setCity] = useState([]);
@@ -51,6 +55,7 @@ const Apply = () => {
     const check_already_applied = async () => {
         await axios.post(`${base_url}api/validate-mobile-loan`, { mobile: mobile }, { headers: headers }).then((resp) => {
             if (resp.data.is_success == "1") {
+                setMsg(resp.data.message);
                 setPdetails({ ...pdetails, personal: true, document: true, address: true, loan: true, bank: true });
                 setApplied(true);
             }
@@ -59,11 +64,13 @@ const Apply = () => {
     useEffect(() => {
         check_already_applied();
     }, [])
-    
+
     const apply_now = async () => {
         await axios.post(`${base_url}api/apply-now`, { ...fdata }, { headers: headers }).then((resp) => {
             if (resp.data.is_success == "1") {
+                setMsg(resp.data.message);
                 setApplied(true);
+                setWhtasapp(resp.data.whatsapp)
             }
         })
     }
@@ -75,14 +82,13 @@ const Apply = () => {
     }, [pdetails])
 
     const handleformdata = (e) => {
-        const value = e.target.value.toUpperCase();
+        const value = e.target.value;
         const key = e.target.name;
-
         setFdata((prevFdata) => ({ ...prevFdata, [key]: value }));
     }
-    React.useEffect(() => {
-        console.log(fdata);
-    }, [fdata]);
+    // React.useEffect(() => {
+    //     console.log(fdata);
+    // }, [fdata]);
     const handledate = (e) => {
         const key = e.target.name;
         const value = e.target.value;
@@ -222,6 +228,13 @@ const Apply = () => {
                 }
                 errors.push(obj);
             }
+            if (!fdata.account_no) {
+                let obj = {
+                    path: "account_no",
+                    error: "Bank Account Number is required."
+                }
+                errors.push(obj);
+            }
         }
         setErrs(errors);
 
@@ -232,6 +245,7 @@ const Apply = () => {
         return true;
     }
     const handlepincode = (e) => {
+        setErrs([]);
         const value = e.target.value;
         setPincode(value);
         if (value.length == 6) {
@@ -244,10 +258,12 @@ const Apply = () => {
         await axios.get(`https://api.postalpincode.in/pincode/${value}`).then((resp) => {
             if (resp.data[0].Status === "Success") {
                 const postoffice = resp.data[0].PostOffice;
-                const cities = postoffice.map(obj => obj.Name);
-                console.log(cities)
-                setCity(cities);
-                setStates([postoffice[0].State]);
+                const cities = postoffice.map(obj => obj.District);
+                const mcity = cities[0];
+                const mstate = postoffice[0].State;
+                setCity([mcity]);
+                setStates([mstate]);
+                setFdata({ ...fdata, city: mcity, state: mstate });
 
             } else {
                 let obj = {
@@ -272,7 +288,37 @@ const Apply = () => {
     const handleformemi = (emi) => {
         setFdata({ ...fdata, 'emi': emi });
     }
+    const handlepancard = (e) => {
+        setErrs([]);
+        const value = e.target.value;
+        setPancard(value.toUpperCase());
+    }
+    const validatepancard = async () => {
+        // await axios.post(`https://api.pancardstatus.in/api/v1/pan/${pancard}`, {pan_number : pancard}, {headers : headers}).then((resp) => {
+        //     console.log(resp)
+        // })
+        await axios.get(`https://api2.incred.com/v2/credit-line/pan/check/${pancard}?NAME=${fdata?.name} `, { headers: headers }).then((resp) => {
+            if (resp.data.status) {
+                setFdata({ ...fdata, 'pancard_no': pancard })
+            } else if (!resp.data.status) {
+                console.log(resp.data.status)
+                let obj = {
+                    "path": "pancard_no",
+                    "error": "Invalid Pan Card"
+                }
+                setErrs([...errs, obj]);
+            }
 
+
+        })
+    }
+
+    useEffect(() => {
+        if (pancard && pancard.length == 10) {
+            validatepancard();
+        }
+
+    }, [pancard])
     useEffect(() => {
         const fulldate = year + '-' + month + '-' + date;
         setFdata({ ...fdata, "dob": fulldate });
@@ -289,11 +335,9 @@ const Apply = () => {
             <section className='py-10'>
                 <div className="container">
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
-                        <div className="col-span-2 order-2">
+                        <div className="col-span-2 lg:order-2 order-1">
                             <div className="grid lg:grid-cols-1 md:grid-cols-1 grid-cols-1 gap-5 ">
                                 <div className="loanapplyform border-s-4 border-primary p-5 bg-white rounded-md shadow-sm shadow-blue-gray-200 w-full">
-
-
                                     {
                                         !pdetails.personal && (
                                             <>
@@ -352,14 +396,14 @@ const Apply = () => {
                                                 <h4>Document Details</h4>
                                                 <div className="w-full mb-4">
                                                     <label className='block formlabel' htmlFor="">Pancard No.</label>
-                                                    <input type="text" value={fdata?.pancard_no} name='pancard_no' onChange={handleformdata} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
+                                                    <input type="text" value={pancard} name='pancard_no' onChange={handlepancard} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
                                                     <span className="text-danger block text-sm">
                                                         {errs.find(obj => obj.path === 'pancard_no')?.error}
                                                     </span>
                                                 </div>
                                                 <div className="w-full mb-4">
                                                     <label className='block formlabel' htmlFor="">Aadhar No.</label>
-                                                    <input type="text" name='aadhar_no' onChange={handleformdata} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
+                                                    <input type="tel" maxLength={12} name='aadhar_no' onChange={handleformdata} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
                                                     <span className="text-danger block text-sm">
                                                         {errs.find(obj => obj.path === 'aadhar_no')?.error}
                                                     </span>
@@ -374,7 +418,7 @@ const Apply = () => {
                                                 <h4>Address</h4>
                                                 <div className="w-full mb-4">
                                                     <label className='block formlabel' htmlFor="">Pincode</label>
-                                                    <input type="text" value={pincode} name='pincode' maxLength={6} onChange={handlepincode} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
+                                                    <input type="text" autoComplete='off' value={pincode} name='pincode' maxLength={6} onInput={handlepincode} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
                                                     <span className="text-danger block text-sm">
                                                         {errs.find(obj => obj.path === 'pincode')?.error}
                                                     </span>
@@ -388,32 +432,16 @@ const Apply = () => {
                                                 </div>
                                                 <div className="w-full mb-4">
                                                     <label className='block formlabel' htmlFor="">Enter City</label>
-                                                    <select name='city' onChange={handleformdata} className="w-full shadow-none outline-none rounded-md border min-h-10 border-gray-500">
-                                                        <option value="">---Select---</option>
-                                                        {
-                                                            cities.map((city) => (
-                                                                <>
-                                                                    <option selected={fdata?.city == city.toUpperCase()} value={city}>{city}</option>
-                                                                </>
-                                                            ))
-                                                        }
-                                                    </select>
+                                                    <input type='text' readOnly name='city' value={cities[0]} onChange={handleformdata} className="w-full shadow-none outline-none rounded-md border min-h-10 border-gray-500" />
+
                                                     <span className="text-danger block text-sm">
                                                         {errs.find(obj => obj.path === 'city')?.error}
                                                     </span>
                                                 </div>
                                                 <div className="w-full mb-4">
                                                     <label className='block formlabel' htmlFor="">Enter State</label>
-                                                    <select name='state' onChange={handleformdata} className="w-full shadow-none outline-none rounded-md border min-h-10 border-gray-500">
-                                                        <option value="">---Select---</option>
-                                                        {
-                                                            states.map((state) => (
-                                                                <>
-                                                                    <option selected={fdata?.state == state.toUpperCase()} value={state}>{state}</option>
-                                                                </>
-                                                            ))
-                                                        }
-                                                    </select>
+                                                    <input name='state' value={states[0]} onChange={handleformdata} className="w-full shadow-none outline-none rounded-md border min-h-10 border-gray-500" />
+
                                                     <span className="text-danger block text-sm">
                                                         {errs.find(obj => obj.path === 'state')?.error}
                                                     </span>
@@ -432,7 +460,7 @@ const Apply = () => {
                                     {
                                         pdetails.loan && !pdetails.bank && (
                                             <>
-                                                <BankDetails errs={errs} data={fdata} handleformdata={handleformdata} />
+                                                <BankDetails errs={errs} setErrs={setErrs} data={fdata} setFdata={setFdata} handleformdata={handleformdata} />
                                             </>
                                         )
 
@@ -440,7 +468,8 @@ const Apply = () => {
                                     {
                                         applied && (
                                             <>
-                                                <SuccessApplied />
+                                                
+                                                <SuccessApplied whatsapp={whatsapp} msg={msg} />
                                             </>
                                         )
                                     }
@@ -476,7 +505,7 @@ const Apply = () => {
 
                             </div>
                         </div>
-                        <div className="col-span-1 order-1">
+                        <div className="col-span-1 lg:order-1 order-2">
                             <div className="w-full h-full">
                                 <ul className='*:py-4 *:relative list-none stepsul'>
                                     {
