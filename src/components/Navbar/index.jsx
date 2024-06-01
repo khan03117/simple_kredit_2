@@ -3,7 +3,6 @@ import {
     Navbar,
     MobileNav,
     Typography,
-    Button,
     IconButton,
 
 } from "@material-tailwind/react";
@@ -48,6 +47,16 @@ export function StickyNavbar() {
                     Apply Now
                 </Link>
             </Typography>
+            <Typography
+                as="li"
+                variant="small"
+                color="blue-gray"
+                className="p-1 font-bold"
+            >
+                <Link to="/loan-calculator" className="flex items-center">
+                    Emi Calculator
+                </Link>
+            </Typography>
 
             <Typography
                 as="li"
@@ -55,9 +64,19 @@ export function StickyNavbar() {
                 color="blue-gray"
                 className="p-1 font-bold"
             >
-                <a href="#" className="flex items-center">
+                <Link to="/document-list" className="flex items-center">
                     Documents
-                </a>
+                </Link>
+            </Typography>
+            <Typography
+                as="li"
+                variant="small"
+                color="blue-gray"
+                className="p-1 font-bold"
+            >
+                <Link to="/contact" className="flex items-center">
+                    Contact Us
+                </Link>
             </Typography>
         </ul>
     );
@@ -70,20 +89,21 @@ export function StickyNavbar() {
                 <div className="flex items-center gap-4">
                     <div className="mr-4 hidden lg:block">{navList}</div>
                     <div className="flex items-center gap-x-1">
-                        <Button
+                        {/* <Button
                             variant="text"
                             size="lg"
                             className="hidden lg:inline-block"
                         >
                             <span>Log In</span>
-                        </Button>
-                        <Button
+                        </Button> */}
+                        <Link  to={'/login'}
                             variant="gradient"
                             size="lg"
-                            className="hidden lg:inline-block"
+                            color="green"
+                            className="hidden lg:inline-block px-8 py-3 rounded-md bg-primary text-white font-bold"
                         >
                             <span>Sign in</span>
-                        </Button>
+                        </Link>
                     </div>
                     <IconButton
                         variant="text"
@@ -127,12 +147,12 @@ export function StickyNavbar() {
             <MobileNav open={openNav}>
                 {navList}
                 <div className="flex items-center gap-x-1">
-                    <Button fullWidth variant="text" size="sm" className="">
+                    {/* <Button fullWidth variant="text" size="sm" className="">
                         <span>Log In</span>
-                    </Button>
-                    <Button fullWidth variant="gradient" size="sm" className="">
-                        <span>Sign in</span>
-                    </Button>
+                    </Button> */}
+                    <Link to={'/login'} className="block px-3 py-2 rounded-md bg-primary ">
+                        <span>Log in</span>
+                    </Link>
                 </div>
             </MobileNav>
         </Navbar>

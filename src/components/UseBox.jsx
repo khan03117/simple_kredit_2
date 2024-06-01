@@ -1,6 +1,7 @@
 import { ArrowRightOutlined } from "@ant-design/icons"
+import PropTypes from 'prop-types';
 
-const UseBox = () => {
+const UseBox = (props) => {
     return (
         <>
             <div className="col-lg-6 wow animate__fadeInUp" data-wow-offset="100" data-wow-delay="0.1s" data-wow-duration="0.8s" >
@@ -15,14 +16,17 @@ const UseBox = () => {
                         </div>
                     </div>
                     <h2 className="card-title font-v4">
-                        Create and send invoices <br /> in seconds
+                       {props.title}
                     </h2>
-                    <p className="card-para">Welcome to our hassle-free invoicing solution, <br /> where
-                        you can streamline your billing process.</p>
+                    <p className="card-para">Welcome to our hassle-free loan solution, <br /> where
+                        you can track your application status.</p>
                 </div>
             </div>
         </>
     )
 }
+UseBox.propTypes = {
+    title: PropTypes.string.isRequired, // Define 'title' as a required string prop
+};
 
 export default UseBox

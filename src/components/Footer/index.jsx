@@ -34,7 +34,7 @@ const Footer = () => {
                                 </li>
 
                                 <li>
-                                    <Link to={'/'}>Documents Required</Link>
+                                    <Link to={'/document-list'}>Documents Required</Link>
                                 </li>
                                 <li>
                                     <Link to={'/faq'}>Faq</Link>
@@ -58,9 +58,9 @@ const Footer = () => {
                                 <li>
                                     <Link to={'/policy/default-collection-policy'}>Default and Collection Policy</Link>
                                 </li>
-                                {/* <li>
-                                    <Link to={'/'}>Repayment Policy</Link>
-                                </li> */}
+                                <li>
+                                    <Link to={'/policy/terms-conditions'}>Terms & Conditions</Link>
+                                </li>
                             </ul>
                         </div>
                         <div className="w-full">

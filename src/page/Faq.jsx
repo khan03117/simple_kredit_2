@@ -4,52 +4,52 @@ import {
     AccordionHeader,
     AccordionBody,
 } from "@material-tailwind/react";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { base_url, headers } from "../utils";
+import parse from 'html-react-parser';
 const Faq = () => {
     const [open, setOpen] = React.useState(0);
-    const [alwaysOpen, setAlwaysOpen] = React.useState(true);
+    const [faqs, setFaqs] = useState([]);
 
-    const handleAlwaysOpen = () => setAlwaysOpen((cur) => !cur);
     const handleOpen = (value) => setOpen(open === value ? 0 : value);
+    const getfaqs = async () => {
+        await axios.get(`${base_url}api/faqs`, { headers: headers }).then((resp) => {
+            setFaqs(resp.data.data);
+        })
+    }
+    useEffect(() => {
+        getfaqs();
+    }, []);
     return (
         <>
             <section className="py-28">
                 <div className="container mx-auto">
                     <div className="grid  grid-cols-1">
-                    
+                        <div className="col-span-1 mb-5">
+                            <h2 className="sectiontitle">Faq</h2>
+                        </div>
                         <div className="col-span-1">
-                            <div className="w-full">
-                                <Accordion open={alwaysOpen}>
-                                    <AccordionHeader onClick={handleAlwaysOpen}>What is Material Tailwind?</AccordionHeader>
-                                    <AccordionBody>
-                                        We&apos;re not always in the position that we want to be at. We&apos;re constantly
-                                        growing. We&apos;re constantly making mistakes. We&apos;re constantly trying to express
-                                        ourselves and actualize our dreams.
-                                    </AccordionBody>
-                                </Accordion>
-                                <Accordion open={open === 1}>
-                                    <AccordionHeader onClick={() => handleOpen(1)}>
-                                        How to use Material Tailwind?
-                                    </AccordionHeader>
-                                    <AccordionBody>
-                                        We&apos;re not always in the position that we want to be at. We&apos;re constantly
-                                        growing. We&apos;re constantly making mistakes. We&apos;re constantly trying to express
-                                        ourselves and actualize our dreams.
-                                    </AccordionBody>
-                                </Accordion>
-                                <Accordion open={open === 2}>
-                                    <AccordionHeader onClick={() => handleOpen(2)}>
-                                        What can I do with Material Tailwind?
-                                    </AccordionHeader>
-                                    <AccordionBody>
-                                        We&apos;re not always in the position that we want to be at. We&apos;re constantly
-                                        growing. We&apos;re constantly making mistakes. We&apos;re constantly trying to express
-                                        ourselves and actualize our dreams.
-                                    </AccordionBody>
-                                </Accordion>
+                            <div className="w-full ">
+                                {
+                                    faqs.map((faa) => (
+                                        <>
+                                            <Accordion open={open == faa.id}>
+                                                <AccordionHeader onClick={() => handleOpen(faa.id)}>
+                                                    {faa.faq}
+                                                </AccordionHeader>
+                                                <AccordionBody>
+                                                    {parse(faa.explain)}
+                                                </AccordionBody>
+                                            </Accordion>
+                                        </>
+                                    ))
+                                }
+                             
+                              
                             </div>
                         </div>
-                    
+
                     </div>
                 </div>
             </section>

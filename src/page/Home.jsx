@@ -13,6 +13,8 @@ import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from '@materia
 import { useNavigate } from 'react-router';
 import LoanCalculater from '../components/LoanCalculater';
 import contactimg from '../assets/image/about.webp'
+import { Link } from 'react-router-dom';
+import ContactForm from './ContactForm';
 
 const Home = () => {
     const [mobile, setMobile] = useState(null);
@@ -93,6 +95,9 @@ const Home = () => {
             })
         }
     }
+    const features = [
+        `Minimum Documentation`, 'Faster Approval', '100% Online Process', 'Loan upto 40.0 Lacs'
+    ];
     return (
         <>
             {
@@ -131,8 +136,9 @@ const Home = () => {
                     </>
                 )
             }
+            
 
-            <section className="homesection lg:py-28 py-20">
+            <section className="homesection lg:py-20 py-20">
                 <div className="container">
                     <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 items-center">
                         <div className="w-full overflow-hidden">
@@ -150,7 +156,7 @@ const Home = () => {
                                                 Apply Now
                                             </button>
                                         </div>
-                                        <button to={'/'} className='px-5 py-3 rounded-full bg-secondary text-white'>Check Status</button>
+                                        <Link to={'/login'} className='px-5 py-3 rounded-full bg-secondary text-white'>Check Status</Link>
                                     </div>
                                 </div>
                             </div>
@@ -169,10 +175,10 @@ const Home = () => {
                     <div className="container">
                         <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
                             {
-                                [1, 2, 3, 4].map(() => (
+                                features.map((ft) => (
                                     <>
                                         <div className="w-full">
-                                            <Featurebox title="Hassle free Financial Support upto ₹ 40.0 Lacs" />
+                                            <Featurebox title={ft} />
                                         </div>
                                     </>
                                 ))
@@ -195,7 +201,7 @@ const Home = () => {
                                     <h2 className="sectiontitle">
                                         You can apply
                                     </h2>
-                                    <ul className='*:text-[1rem] *:py-2 font-light list-inside conditionsul'>
+                                    <ul className='*:text-[1rem] *:py-2 text-blue-gray-600 list-inside conditionsul'>
                                         <li>
                                             If you are an Indian citizen above 18 years of age
                                         </li>
@@ -231,12 +237,12 @@ const Home = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="w-full">
                             <div className="w-full">
-                                <UseBox />
+                                <UseBox title="Get loan from  simple process" />
                             </div>
                         </div>
                         <div className="w-full">
                             <div className="w-full">
-                                <UseBox />
+                                <UseBox  title="Calculate and confirm your loans" />
                             </div>
                         </div>
                     </div>
@@ -314,27 +320,7 @@ const Home = () => {
                 <div className="container mx-auto">
                     <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
                         <div className="col-span-1">
-                            <div className="w-full p-7 bg-white rounded-lg border-e-4 border-primary contactform">
-                                <div className="form-group mb-4">
-                                    <label className="form-label">Enter Name</label>
-                                    <input type="text" className="form-control" placeholder="Enter your name" />
-                                </div>
-                                <div className="form-group mb-4">
-                                    <label className="form-label">Enter Email</label>
-                                    <input type="email" className="form-control" placeholder="Enter your email" />
-                                </div>
-                                <div className="form-group mb-4">
-                                    <label className="form-label">Enter mobile</label>
-                                    <input type="tel" className="form-control" placeholder="Enter your mobile" />
-                                </div>
-                                <div className="form-group mb-4">
-                                    <label className="form-label">Enter message</label>
-                                    <textarea name="" className='form-control' placeholder='Enter your message' id=""></textarea>
-                                </div>
-                                <div className="form-group">
-                                    <button className="px-10 min-w-48 py-3 bg-primary text-white  rounded-full">Submit</button>
-                                </div>
-                            </div>
+                            <ContactForm/>
                         </div>
                         <div className="col-span-1">
                             <div className="w-full mb-10">
