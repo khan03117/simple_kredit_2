@@ -9,13 +9,15 @@ import successimg from '../assets/image/verified.png'
 import { useLocation, useNavigate } from 'react-router';
 import { base_url, headers } from '../utils';
 import SuccessApplied from '../components/SuccessApplied';
+import loadingimg from '../assets/image/loading.svg'
 
 const Apply = () => {
     const location = useLocation();
     const Navigate = useNavigate();
     const mobile = location?.state?.mobile ?? false;
+    const [loading, setLoading] = useState(false);
     const [fdata, setFdata] = useState({ mobile: mobile });
-    const[whatsapp, setWhtasapp] = useState(null);
+    const [whatsapp, setWhtasapp] = useState(null);
     const [pancard, setPancard] = useState(null);
     const [year, setYear] = useState(null);
     const [month, setMonth] = useState(null);
@@ -53,25 +55,33 @@ const Apply = () => {
 
     }
     const check_already_applied = async () => {
+        setLoading(true);
         await axios.post(`${base_url}api/validate-mobile-loan`, { mobile: mobile }, { headers: headers }).then((resp) => {
+            setLoading(false)
             if (resp.data.is_success == "1") {
                 setMsg(resp.data.message);
                 setPdetails({ ...pdetails, personal: true, document: true, address: true, loan: true, bank: true });
                 setApplied(true);
+
             }
-        })
+        });
+
     }
+
     useEffect(() => {
         check_already_applied();
     }, [])
 
     const apply_now = async () => {
+        setLoading(true);
         await axios.post(`${base_url}api/apply-now`, { ...fdata }, { headers: headers }).then((resp) => {
             if (resp.data.is_success == "1") {
                 setMsg(resp.data.message);
                 setApplied(true);
                 setWhtasapp(resp.data.whatsapp)
+                setLoading(false);
             }
+            setLoading(false)
         })
     }
     useEffect(() => {
@@ -337,165 +347,179 @@ const Apply = () => {
                     <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
                         <div className="col-span-2 lg:order-2 order-1">
                             <div className="grid lg:grid-cols-1 md:grid-cols-1 grid-cols-1 gap-5 ">
-                                <div className="loanapplyform border-s-4 border-primary p-5 bg-white rounded-md shadow-sm shadow-blue-gray-200 w-full">
+                                <div className="loanapplyform border-s-4 border-primary p-5 bg-white rounded-md shadow-sm shadow-blue-gray-200 w-full relative">
                                     {
-                                        !pdetails.personal && (
+                                        loading && (
                                             <>
-                                                <div className="w-full">
-                                                    <h4>Personal Details</h4>
-                                                    <div className="w-full mb-4">
-                                                        <label className='block formlabel' htmlFor="">Enter Name</label>
-                                                        <input type="text" name='name' value={fdata.name} onChange={handleformdata} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
-                                                        <span className="text-danger block text-sm">
-                                                            {errs.find(obj => obj.path === 'name')?.error}
-                                                        </span>
-                                                    </div>
-                                                    <div className="w-full mb-4">
-                                                        <label className='block formlabel' htmlFor="">
-                                                            Date of birth
-                                                        </label>
-                                                        <div className="grid grid-cols-3 gap-2">
+                                                <img src={loadingimg} alt="" className="max-w-full" />
+                                            </>
+                                        )
+                                    }
+                                    {
+                                        !loading && (
+                                            <>
+
+                                                {
+                                                    !pdetails.personal && (
+                                                        <>
                                                             <div className="w-full">
-                                                                <input type="number" name="year" value={year} onChange={handledate} maxLength={4} placeholder='yyyy' id="" className="border border-gray-500 rounded-md max-w-full min-h-10 p-3 text-center" />
+                                                                <h4>Personal Details</h4>
+                                                                <div className="w-full mb-4">
+                                                                    <label className='block formlabel' htmlFor="">Enter Name</label>
+                                                                    <input type="text" name='name' value={fdata.name} onChange={handleformdata} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
+                                                                    <span className="text-danger block text-sm">
+                                                                        {errs.find(obj => obj.path === 'name')?.error}
+                                                                    </span>
+                                                                </div>
+                                                                <div className="w-full mb-4">
+                                                                    <label className='block formlabel' htmlFor="">
+                                                                        Date of birth
+                                                                    </label>
+                                                                    <div className="grid grid-cols-3 gap-2">
+                                                                        <div className="w-full">
+                                                                            <input type="number" name="year" value={year} onChange={handledate} maxLength={4} placeholder='yyyy' id="" className="border border-gray-500 rounded-md max-w-full min-h-10 p-3 text-center" />
+                                                                            <span className="text-danger block text-sm">
+                                                                                {errs.find(obj => obj.path === 'year')?.error}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div className="w-full">
+                                                                            <input type="number" ref={monthref} disabled={!year} onChange={handledate} value={month} maxLength={2} placeholder='mm' name="month" id="" className="border border-gray-500 rounded-md max-w-full min-h-10 p-3 text-center" />
+                                                                        </div>
+                                                                        <div className="w-full">
+                                                                            <input type="number" ref={dateref} disabled={!month} value={date} onChange={handledate} maxLength={2} placeholder='dd' name="date" id="" className="border border-gray-500 rounded-md max-w-full min-h-10 p-3 text-center" />
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <span className="text-danger block text-sm">
+                                                                        {errs.find(obj => obj.path === 'dob')?.error}
+                                                                    </span>
+                                                                </div>
+                                                                <div className="w-full mb-4">
+                                                                    <label htmlFor="" className='block formlabel'>Enter Email</label>
+                                                                    <input type="email" value={fdata?.email} onChange={handleformdata} placeholder='Enter email id' name="email" className="border border-gray-500 rounded-md w-full min-h-10 p-3 text-start" />
+                                                                </div>
+                                                                <div className="w-full mb-4">
+                                                                    <label className='block formlabel' htmlFor="">Gender</label>
+                                                                    <div className="flex gap-10  border bg-white rounded-lg border-gray-500">
+                                                                        <Radio name='gender' onChange={handleformdata} color='green' label="Male" value={'Male'} />
+                                                                        <Radio name='gender' onChange={handleformdata} color='green' label="Female" value={'Female'} />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                }
+
+
+                                                {
+                                                    pdetails.personal && !pdetails.document && (
+                                                        <>
+                                                            <h4>Document Details</h4>
+                                                            <div className="w-full mb-4">
+                                                                <label className='block formlabel' htmlFor="">Pancard No.</label>
+                                                                <input type="text" value={pancard} name='pancard_no' onChange={handlepancard} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
                                                                 <span className="text-danger block text-sm">
-                                                                    {errs.find(obj => obj.path === 'year')?.error}
+                                                                    {errs.find(obj => obj.path === 'pancard_no')?.error}
                                                                 </span>
                                                             </div>
-                                                            <div className="w-full">
-                                                                <input type="number" ref={monthref} disabled={!year} onChange={handledate} value={month} maxLength={2} placeholder='mm' name="month" id="" className="border border-gray-500 rounded-md max-w-full min-h-10 p-3 text-center" />
+                                                            <div className="w-full mb-4">
+                                                                <label className='block formlabel' htmlFor="">Aadhar No.</label>
+                                                                <input type="tel" maxLength={12} name='aadhar_no' onChange={handleformdata} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
+                                                                <span className="text-danger block text-sm">
+                                                                    {errs.find(obj => obj.path === 'aadhar_no')?.error}
+                                                                </span>
                                                             </div>
-                                                            <div className="w-full">
-                                                                <input type="number" ref={dateref} disabled={!month} value={date} onChange={handledate} maxLength={2} placeholder='dd' name="date" id="" className="border border-gray-500 rounded-md max-w-full min-h-10 p-3 text-center" />
+                                                        </>
+                                                    )
+                                                }
+                                                {
+                                                    pdetails.document && !pdetails.address && (
+                                                        <>
+
+                                                            <h4>Address</h4>
+                                                            <div className="w-full mb-4">
+                                                                <label className='block formlabel' htmlFor="">Pincode</label>
+                                                                <input type="text" autoComplete='off' value={pincode} name='pincode' maxLength={6} onInput={handlepincode} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
+                                                                <span className="text-danger block text-sm">
+                                                                    {errs.find(obj => obj.path === 'pincode')?.error}
+                                                                </span>
                                                             </div>
+                                                            <div className="w-full mb-4">
+                                                                <label className='block formlabel' htmlFor="">Address</label>
+                                                                <input type="text" value={fdata?.address} name='address' onChange={handleformdata} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
+                                                                <span className="text-danger block text-sm">
+                                                                    {errs.find(obj => obj.path === 'address')?.error}
+                                                                </span>
+                                                            </div>
+                                                            <div className="w-full mb-4">
+                                                                <label className='block formlabel' htmlFor="">Enter City</label>
+                                                                <input type='text' readOnly name='city' value={cities[0]} onChange={handleformdata} className="w-full shadow-none outline-none rounded-md border min-h-10 border-gray-500" />
 
-                                                        </div>
-                                                        <span className="text-danger block text-sm">
-                                                            {errs.find(obj => obj.path === 'dob')?.error}
-                                                        </span>
-                                                    </div>
-                                                    <div className="w-full mb-4">
-                                                        <label htmlFor="" className='block formlabel'>Enter Email</label>
-                                                        <input type="email" value={fdata?.email} onChange={handleformdata} placeholder='Enter email id' name="email" className="border border-gray-500 rounded-md w-full min-h-10 p-3 text-start" />
-                                                    </div>
-                                                    <div className="w-full mb-4">
-                                                        <label className='block formlabel' htmlFor="">Gender</label>
-                                                        <div className="flex gap-10  border bg-white rounded-lg border-gray-500">
-                                                            <Radio name='gender' onChange={handleformdata} color='green' label="Male" value={'Male'} />
-                                                            <Radio name='gender' onChange={handleformdata} color='green' label="Female" value={'Female'} />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        )
-                                    }
+                                                                <span className="text-danger block text-sm">
+                                                                    {errs.find(obj => obj.path === 'city')?.error}
+                                                                </span>
+                                                            </div>
+                                                            <div className="w-full mb-4">
+                                                                <label className='block formlabel' htmlFor="">Enter State</label>
+                                                                <input name='state' value={states[0]} onChange={handleformdata} className="w-full shadow-none outline-none rounded-md border min-h-10 border-gray-500" />
 
+                                                                <span className="text-danger block text-sm">
+                                                                    {errs.find(obj => obj.path === 'state')?.error}
+                                                                </span>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                }
+                                                {
+                                                    pdetails.address && !pdetails.loan && (
+                                                        <>
+                                                            <LoanDetails errs={errs} data={fdata} handleformemi={handleformemi} handleformdata={handleformdata} />
+                                                        </>
+                                                    )
 
-                                    {
-                                        pdetails.personal && !pdetails.document && (
-                                            <>
-                                                <h4>Document Details</h4>
-                                                <div className="w-full mb-4">
-                                                    <label className='block formlabel' htmlFor="">Pancard No.</label>
-                                                    <input type="text" value={pancard} name='pancard_no' onChange={handlepancard} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
-                                                    <span className="text-danger block text-sm">
-                                                        {errs.find(obj => obj.path === 'pancard_no')?.error}
-                                                    </span>
-                                                </div>
-                                                <div className="w-full mb-4">
-                                                    <label className='block formlabel' htmlFor="">Aadhar No.</label>
-                                                    <input type="tel" maxLength={12} name='aadhar_no' onChange={handleformdata} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
-                                                    <span className="text-danger block text-sm">
-                                                        {errs.find(obj => obj.path === 'aadhar_no')?.error}
-                                                    </span>
-                                                </div>
-                                            </>
-                                        )
-                                    }
-                                    {
-                                        pdetails.document && !pdetails.address && (
-                                            <>
+                                                }
+                                                {
+                                                    pdetails.loan && !pdetails.bank && (
+                                                        <>
+                                                            <BankDetails errs={errs} setErrs={setErrs} data={fdata} setFdata={setFdata} handleformdata={handleformdata} />
+                                                        </>
+                                                    )
 
-                                                <h4>Address</h4>
-                                                <div className="w-full mb-4">
-                                                    <label className='block formlabel' htmlFor="">Pincode</label>
-                                                    <input type="text" autoComplete='off' value={pincode} name='pincode' maxLength={6} onInput={handlepincode} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
-                                                    <span className="text-danger block text-sm">
-                                                        {errs.find(obj => obj.path === 'pincode')?.error}
-                                                    </span>
-                                                </div>
-                                                <div className="w-full mb-4">
-                                                    <label className='block formlabel' htmlFor="">Address</label>
-                                                    <input type="text" value={fdata?.address} name='address' onChange={handleformdata} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
-                                                    <span className="text-danger block text-sm">
-                                                        {errs.find(obj => obj.path === 'address')?.error}
-                                                    </span>
-                                                </div>
-                                                <div className="w-full mb-4">
-                                                    <label className='block formlabel' htmlFor="">Enter City</label>
-                                                    <input type='text' readOnly name='city' value={cities[0]} onChange={handleformdata} className="w-full shadow-none outline-none rounded-md border min-h-10 border-gray-500" />
+                                                }
+                                                {
+                                                    applied && (
+                                                        <>
 
-                                                    <span className="text-danger block text-sm">
-                                                        {errs.find(obj => obj.path === 'city')?.error}
-                                                    </span>
-                                                </div>
-                                                <div className="w-full mb-4">
-                                                    <label className='block formlabel' htmlFor="">Enter State</label>
-                                                    <input name='state' value={states[0]} onChange={handleformdata} className="w-full shadow-none outline-none rounded-md border min-h-10 border-gray-500" />
+                                                            <SuccessApplied whatsapp={whatsapp} msg={msg} />
+                                                        </>
+                                                    )
+                                                }
 
-                                                    <span className="text-danger block text-sm">
-                                                        {errs.find(obj => obj.path === 'state')?.error}
-                                                    </span>
-                                                </div>
-                                            </>
-                                        )
-                                    }
-                                    {
-                                        pdetails.address && !pdetails.loan && (
-                                            <>
-                                                <LoanDetails errs={errs} data={fdata} handleformemi={handleformemi} handleformdata={handleformdata} />
-                                            </>
-                                        )
+                                                {
+                                                    !pdetails.bank && (
+                                                        <>
+                                                            <div className="w-full flex justify-between">
+                                                                {
+                                                                    pdetails.personal && (
+                                                                        <>
+                                                                            <Button onClick={() => gotoback()} className='block mt-3' type='submit' variant='outlined'>
+                                                                                <ArrowLeftOutlined /><span className="ms-4">
+                                                                                    Back
+                                                                                </span>
+                                                                            </Button>
+                                                                        </>
+                                                                    )
+                                                                }
 
-                                    }
-                                    {
-                                        pdetails.loan && !pdetails.bank && (
-                                            <>
-                                                <BankDetails errs={errs} setErrs={setErrs} data={fdata} setFdata={setFdata} handleformdata={handleformdata} />
-                                            </>
-                                        )
-
-                                    }
-                                    {
-                                        applied && (
-                                            <>
-                                                
-                                                <SuccessApplied whatsapp={whatsapp} msg={msg} />
-                                            </>
-                                        )
-                                    }
-
-                                    {
-                                        !pdetails.bank && (
-                                            <>
-                                                <div className="w-full flex justify-between">
-                                                    {
-                                                        pdetails.personal && (
-                                                            <>
-                                                                <Button onClick={() => gotoback()} className='block mt-3' type='submit' variant='outlined'>
-                                                                    <ArrowLeftOutlined /><span className="ms-4">
-                                                                        Back
+                                                                <Button onClick={handleformstep} className='block mt-3' type='submit' variant='gradient'>Next
+                                                                    <span className="ms-4">
+                                                                        <ArrowRightOutlined />
                                                                     </span>
                                                                 </Button>
-                                                            </>
-                                                        )
-                                                    }
-
-                                                    <Button onClick={handleformstep} className='block mt-3' type='submit' variant='gradient'>Next
-                                                        <span className="ms-4">
-                                                            <ArrowRightOutlined />
-                                                        </span>
-                                                    </Button>
-                                                </div>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                }
                                             </>
                                         )
                                     }
