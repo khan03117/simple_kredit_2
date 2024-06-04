@@ -6,6 +6,7 @@ import { useLocation } from 'react-router';
 import axios from 'axios';
 import { base_url, headers } from '../utils';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 const SuccessApplied = (props) => {
   const [wmsg, setWmsg] = useState(null);
   const [agent, setAgnet] = useState(null);
@@ -25,9 +26,9 @@ const SuccessApplied = (props) => {
   useEffect(() => {
     sendtowhatsapp();
   }, [agent, wmsg]);
-  const chatwithus = () => {
-    window.open(`https://wa.me/91${agent}?text=${wmsg}. Please contact me.`);
-  }
+  // const chatwithus = () => {
+  //   window.open(`https://wa.me/91${agent}?text=${wmsg}. Please contact me.`);
+  // }
 
   return (
     <>
@@ -38,9 +39,9 @@ const SuccessApplied = (props) => {
           <p className="text-sm text-gray-700 mb-8">
             {props?.msg} We will contact you soon.
           </p>
-          <button className="bg-primary text-white py-2 px-4 rounded-md text-sm" onClick={() => chatwithus()}>
+          <Link target='_blank' to={`https://wa.me/91${agent}?text=${wmsg}. Please contact me.`} className="bg-primary text-white py-2 px-4 rounded-md text-sm">
             Talk to SimpleKredit
-          </button>
+          </Link>
         </div>
       </div>
     </>

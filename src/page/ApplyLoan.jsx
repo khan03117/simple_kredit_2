@@ -88,10 +88,10 @@ const ApplyLoan = () => {
                             <DialogHeader>Verify OTP</DialogHeader>
                             <DialogBody >
                                 <div className="grid grid-cols-4 gap-3">
-                                    <input type="text" name="otp1" maxLength={1} ref={ref1} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp2" maxLength={1} ref={ref2} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp3" maxLength={1} ref={ref3} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp4" maxLength={1} ref={ref4} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="number" name="otp1" maxLength={1} ref={ref1} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="number" name="otp2" maxLength={1} ref={ref2} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="number" name="otp3" maxLength={1} ref={ref3} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
+                                    <input type="number" name="otp4" maxLength={1} ref={ref4} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
                                 </div>
                             </DialogBody>
                             <DialogFooter>
@@ -154,7 +154,7 @@ const ApplyLoan = () => {
                                     <h4 className="text-lg text-primary font-semibold">Enter your mobile number</h4>
                                     <div className="w-full flex items-center justify-between mt-2 relative">
                                         <span className="p-3 bg-white rounded-md  border border-primary border-e-0 rounded-ee-none  rounded-se-none text-secondary/60">+91</span>
-                                        <input type="text" onChange={handlemobile} maxLength={10} minLength={10} className="w-full border border-primary border-s-0  rounded-md rounded-ss-none rounded-es-none py-3 px-3" placeholder="Enter your mobile number" />
+                                        <input type="tel" onChange={handlemobile} maxLength={10} minLength={10} className="w-full border border-primary border-s-0  rounded-md rounded-ss-none rounded-es-none py-3 px-3" placeholder="Enter your mobile number" />
                                         <button onClick={sendotp} className="bg-primary text-white rounded-md px-5 py-2  text-nowrap absolute end-2 top-auto start-auto">Get OTP</button>
                                     </div>
                                     <span className="text-danger">{error}</span>

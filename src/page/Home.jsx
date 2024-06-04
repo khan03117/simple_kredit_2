@@ -10,7 +10,7 @@ import ServiceCard from '../components/ServiceCard';
 import axios from 'axios';
 import { base_url, headers } from '../utils';
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from '@material-tailwind/react';
-import { useNavigate } from 'react-router';
+import {useNavigate } from 'react-router';
 import LoanCalculater from '../components/LoanCalculater';
 import contactimg from '../assets/image/about.webp'
 import { Link } from 'react-router-dom';
@@ -18,6 +18,7 @@ import ContactForm from './ContactForm';
 
 const Home = () => {
     const [mobile, setMobile] = useState(null);
+    const[errs, setErrs] = useState([]);
     const [loans, setLoans] = useState([]);
     const [open, setOpen] = useState(false);
     const [otp1, setOtp1] = useState(null);
@@ -63,6 +64,8 @@ const Home = () => {
                 if (resp.data.is_success == "1") {
 
                     setOpen(true);
+                }else{
+                    setErrs(resp.data.errors);
                 }
             })
         }
@@ -156,8 +159,19 @@ const Home = () => {
                                                 Apply Now
                                             </button>
                                         </div>
+
                                         <Link to={'/login'} className='px-5 py-3 rounded-full bg-secondary text-white'>Check Status</Link>
                                     </div>
+                                    {
+                                      errs['mobile'] && (
+                                        <>
+                                        <span className="text-danger">
+                                            {errs['mobile']}
+                                        </span>
+                                        </>
+                                      )
+                                    }
+                                  
                                 </div>
                             </div>
                         </div>

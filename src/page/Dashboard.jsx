@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom"
-
 const Dashboard = () => {
     return (
         <>
@@ -22,9 +20,14 @@ const Dashboard = () => {
                             You dont have any loan.
                         </p>
                         <div className="w-full mt-5">
-                            <Link className="px-5 inline-block py-3 bg-primary rounded-lg text-white font-bold" to={`https://SimpleKredit.com/91${9098989898}?text=hi sir, i need loan.`}>
+                            <a
+                                className="px-5 inline-block py-3 bg-primary rounded-lg text-white font-bold"
+                                href={`https://wa.me/91${9098989898}?text=hi sir, i need loan.`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 Get instant loan
-                            </Link>
+                            </a>
                         </div>
 
                     </div>

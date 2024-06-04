@@ -16,6 +16,7 @@ const Apply = () => {
     const Navigate = useNavigate();
     const mobile = location?.state?.mobile ?? false;
     const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState(null);
     const [fdata, setFdata] = useState({ mobile: mobile });
     const [whatsapp, setWhtasapp] = useState(null);
     const [pancard, setPancard] = useState(null);
@@ -33,9 +34,8 @@ const Apply = () => {
     const monthref = useRef(null);
 
     const handleformstep = () => {
-
+        console.log(validateErrors())
         if (!validateErrors()) {
-            console.log(errs.length)
             if (!pdetails.personal) {
                 setPdetails({ ...pdetails, personal: true });
             }
@@ -90,7 +90,14 @@ const Apply = () => {
         }
 
     }, [pdetails])
+    const handleemail = async (e) => {
+        const eml = e.target.value;
+        setEmail(eml)
 
+    }
+    useEffect(() => {
+        setFdata((prevFdata) => ({ ...prevFdata, ['email']: email }));
+    }, [email])
     const handleformdata = (e) => {
         const value = e.target.value;
         const key = e.target.name;
@@ -130,12 +137,18 @@ const Apply = () => {
     const validateErrors = () => {
         let errors = [];
         if (!pdetails.personal) {
-
-
+            console.log(fdata)
             if (!fdata.name) {
                 let obj = {
                     path: "name",
                     error: "Full Name is required."
+                }
+                errors.push(obj);
+            }
+            if (!fdata?.email) {
+                let obj = {
+                    path: "email",
+                    error: "Valid email is required."
                 }
                 errors.push(obj);
             }
@@ -161,6 +174,26 @@ const Apply = () => {
                     error: "year is required."
                 }
                 errors.push(obj);
+            }
+            if (!fdata.gender) {
+                let obj = {
+                    path: "gender",
+                    error: "Gender is required."
+                }
+                errors.push(obj);
+            }
+            if (fdata.email) {
+                async () => {
+                    await axios.post(`${base_url}api/validate_email`, { email: fdata.email }, { headers: headers }).then((resp) => {
+                        if (resp.data.is_success == "0") {
+                            let obj = {
+                                path: "email",
+                                error: resp.data.error['email']
+                            }
+                            errors.push(obj);
+                        }
+                    })
+                }
             }
         }
         if (pdetails.personal && !pdetails.document) {
@@ -396,7 +429,12 @@ const Apply = () => {
                                                                 </div>
                                                                 <div className="w-full mb-4">
                                                                     <label htmlFor="" className='block formlabel'>Enter Email</label>
-                                                                    <input type="email" value={fdata?.email} onChange={handleformdata} placeholder='Enter email id' name="email" className="border border-gray-500 rounded-md w-full min-h-10 p-3 text-start" />
+                                                                    <div className="flex">
+                                                                        <input type="email" autoComplete='off' value={email} onChange={handleemail} placeholder='Enter email id' name="email" className="border border-gray-500 rounded-md w-full min-h-10 p-3 text-start" />
+                                                                    </div>
+                                                                    <span className="text-danger block text-sm">
+                                                                        {errs.find(obj => obj.path === 'email')?.error}
+                                                                    </span>
                                                                 </div>
                                                                 <div className="w-full mb-4">
                                                                     <label className='block formlabel' htmlFor="">Gender</label>
