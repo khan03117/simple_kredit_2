@@ -1,24 +1,24 @@
 
-import homeimg from '../assets/image/homeimg.png';
+// import homeimg from '../assets/image/homeimg.png';
 import { useEffect, useRef, useState } from 'react';
 
 import Featurebox from '../components/Featurebox';
-import applyimg from '../assets/image/visa_card.png'
-import UseBox from '../components/UseBox';
+import applyimg from '../assets/image/apply.jpg'
 import ServiceCard from '../components/ServiceCard';
 // import customerimg from '../assets/image/Costumer.png';
 import axios from 'axios';
 import { base_url, headers } from '../utils';
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from '@material-tailwind/react';
-import {useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import LoanCalculater from '../components/LoanCalculater';
-import contactimg from '../assets/image/about.webp'
+import contactimg from '../assets/image/contact_us.png'
 import { Link } from 'react-router-dom';
 import ContactForm from './ContactForm';
+import SimpleCalculator from '../components/SimpleCalclulator';
 
 const Home = () => {
     const [mobile, setMobile] = useState(null);
-    const[errs, setErrs] = useState([]);
+    const [errs, setErrs] = useState([]);
     const [loans, setLoans] = useState([]);
     const [open, setOpen] = useState(false);
     const [otp1, setOtp1] = useState(null);
@@ -64,7 +64,7 @@ const Home = () => {
                 if (resp.data.is_success == "1") {
 
                     setOpen(true);
-                }else{
+                } else {
                     setErrs(resp.data.errors);
                 }
             })
@@ -139,7 +139,7 @@ const Home = () => {
                     </>
                 )
             }
-            
+
 
             <section className="homesection lg:py-20 py-20">
                 <div className="container">
@@ -163,106 +163,88 @@ const Home = () => {
                                         <Link to={'/login'} className='px-5 py-3 rounded-full bg-secondary text-white'>Check Status</Link>
                                     </div>
                                     {
-                                      errs['mobile'] && (
-                                        <>
-                                        <span className="text-danger">
-                                            {errs['mobile']}
-                                        </span>
-                                        </>
-                                      )
+                                        errs['mobile'] && (
+                                            <>
+                                                <span className="text-danger">
+                                                    {errs['mobile']}
+                                                </span>
+                                            </>
+                                        )
                                     }
-                                  
+
                                 </div>
                             </div>
                         </div>
                         <div className="w-full ">
                             <div className="w-full lg:block hidden">
-                                <img src={homeimg} alt="" />
+                                <SimpleCalculator />
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            <div className="conditonsbg">
-
-                <section className="features py-16">
-                    <div className="container">
-                        <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
-                            {
-                                features.map((ft) => (
-                                    <>
-                                        <div className="w-full">
-                                            <Featurebox title={ft} />
-                                        </div>
-                                    </>
-                                ))
-                            }
-
-                        </div>
-                    </div>
-                </section>
-
-                <section className="py-8 pb-16">
-                    <div className="container mx-auto">
-                        <div className="grid md:grid-cols-2 grid-cols-1">
-                            <div className="w-full">
-                                <div className="w-full">
-                                    <img src={applyimg} alt="" className='lg:max-w-[450px] max-w-full' />
-                                </div>
-                            </div>
-                            <div className="w-full">
-                                <div className="w-full lg:bg-transparent bg-white lg:p-0 p-3 rounded-xl">
-                                    <h2 className="sectiontitle">
-                                        You can apply
-                                    </h2>
-                                    <ul className='*:text-[1rem] *:py-2 text-blue-gray-600 list-inside conditionsul'>
-                                        <li>
-                                            If you are an Indian citizen above 18 years of age
-                                        </li>
-                                        <li>
-                                            If you have a valid current address proof
-                                        </li>
-                                        <li>
-                                            If you have a bank account with internet banking facility
-                                        </li>
-                                        <li>
-                                            Annual Percentage Rate offered to the customer during the period of 02nd Oct 2022 To 31st Mar 2023
-                                        </li>
-                                        <li>
-                                            Min APR - 8%. Max APR - 11%. Repayment schedule: Min - 12 months & Max - 240 Months.^T&C apply
-                                        </li>
-                                        <li>
-                                            Example: On a personal loan of Rs. 1 lakh at rate of 8% per annum, for a tenure of 24 months, the EMI amount will be Rs.4,523
-                                        </li>
-                                        <li>
-                                            List of documents required for loan approva
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
 
-            </div>
-            <section className='invoices v1 invoicesection lg:py-16 py-6 lg:my-0 my-1'>
+            <section className="features py-16 bg-white">
                 <div className="container">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="w-full">
-                            <div className="w-full">
-                                <UseBox title="Get loan from  simple process" />
-                            </div>
-                        </div>
-                        <div className="w-full">
-                            <div className="w-full">
-                                <UseBox  title="Calculate and confirm your loans" />
-                            </div>
-                        </div>
+                    <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
+                        {
+                            features.map((ft, ind) => (
+                                <>
+                                    <div className="w-full pe-2 border-e border-primary last:border-0">
+                                        <Featurebox index={ind} title={ft} />
+                                    </div>
+                                </>
+                            ))
+                        }
+
                     </div>
                 </div>
             </section>
-            <section className="py-16 bg-black text-white">
+
+            <section className="py-16">
+                <div className="container mx-auto">
+                    <div className="grid md:grid-cols-2 grid-cols-1">
+                        <div className="col-span-1">
+                            <div className="w-full lg:bg-transparent bg-white lg:p-0 p-3 rounded-xl">
+                                <h2 className="sectiontitle">
+                                    You can apply
+                                </h2>
+                                <ul className='*:text-[1rem] *:py-2 text-blue-gray-600 list-inside conditionsul'>
+                                    <li>
+                                        If you are an Indian citizen above 18 years of age
+                                    </li>
+                                    <li>
+                                        If you have a valid current address proof
+                                    </li>
+                                    <li>
+                                        If you have a bank account with internet banking facility
+                                    </li>
+                                    <li>
+                                        Annual Percentage Rate offered to the customer during the period of 02nd Oct 2022 To 31st Mar 2023
+                                    </li>
+                                    <li>
+                                        Min APR - 8%. Max APR - 11%. Repayment schedule: Min - 12 months & Max - 240 Months.^T&C apply
+                                    </li>
+                                    <li>
+                                        Example: On a personal loan of Rs. 1 lakh at rate of 8% per annum, for a tenure of 24 months, the EMI amount will be Rs.4,523
+                                    </li>
+                                    <li>
+                                        List of documents required for loan approva
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="col-span-1">
+                            <div className="w-full">
+                                <img src={applyimg} alt="" className="max-w-full" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <section className="py-16 bg-primary text-white">
                 <div className="container">
                     <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
                         <div className="w-full text-center">
@@ -333,16 +315,17 @@ const Home = () => {
             <section className='py-10'>
                 <div className="container mx-auto">
                     <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
-                        <div className="col-span-1">
-                            <ContactForm/>
-                        </div>
+                      
                         <div className="col-span-1">
                             <div className="w-full mb-10">
                                 <h3 className="sectiontitle">
                                     Contact Us
                                 </h3>
-                                <img className='lg:max-w-[400px] max-w-full mx-auto' src={contactimg} alt="" />
+                                <img className='lg:max-w-full max-w-full mx-auto' src={contactimg} alt="" />
                             </div>
+                        </div>
+                        <div className="col-span-1">
+                            <ContactForm />
                         </div>
                     </div>
                 </div>

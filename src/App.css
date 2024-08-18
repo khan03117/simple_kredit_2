@@ -38,14 +38,15 @@ input.block, select.block{
   margin: 0 auto;
 }
 .homesection {
-  background-image: url(./assets/image/homenbg.jpg);
-  background-position: center center;
-  background-size: cover;
+  background-image: url(./assets/image/shape-3.png);
+  background-position: center left;
+  background-size: contain;
   background-repeat: no-repeat;
   padding-top: 120px;
   position: relative;
   z-index: 1;
 }
+
 input {
   outline: none !important;
 }
@@ -352,7 +353,7 @@ footer ul li a {
 
 .loantypebox label{
   text-wrap: nowrap;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   font-weight: 600;
 }

@@ -1,11 +1,11 @@
-/* eslint-disable no-unused-vars */
+
 import { ArrowLeftOutlined, ArrowRightOutlined, CheckCircleFilled } from '@ant-design/icons';
 import { Button, Radio } from '@material-tailwind/react';
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react'
 import LoanDetails from './LoanDetails';
 import BankDetails from './BankDetails';
-import successimg from '../assets/image/verified.png'
+// import successimg from '../assets/image/verified.png'
 import { useLocation, useNavigate } from 'react-router';
 import { base_url, headers } from '../utils';
 import SuccessApplied from '../components/SuccessApplied';
@@ -68,7 +68,7 @@ const Apply = () => {
 
     }
 
-    useEffect(() => {
+    React.useEffect(() => {
         check_already_applied();
     }, [])
 
@@ -571,7 +571,7 @@ const Apply = () => {
                             <div className="w-full h-full">
                                 <ul className='*:py-4 *:relative list-none stepsul'>
                                     {
-                                        Object.entries(pdetails).map(([key, val], index) => (
+                                        Object.entries(pdetails).map(([key, val]) => (
                                             <>
                                                 <li>
                                                     <div className="flex gap-2 items-start">

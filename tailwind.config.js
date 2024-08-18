@@ -12,10 +12,13 @@ export default withMT({
     },
     extend: {
       colors: {
-        'primary': '#00C195',
+        'primary': '#004D6E',
         'secondary': '#0d1820',
         'danger' : "#FF5733"
-      }
+      },
+      backgroundImage: {
+        'primary-gradient': 'linear-gradient(90deg, #004D6E 0%, #00ACCC 100%)',
+      },
     },
   },
   plugins: [],

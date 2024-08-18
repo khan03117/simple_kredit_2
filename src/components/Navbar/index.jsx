@@ -150,7 +150,7 @@ export function StickyNavbar() {
                     {/* <Button fullWidth variant="text" size="sm" className="">
                         <span>Log In</span>
                     </Button> */}
-                    <Link to={'/login'} className="block px-3 py-2 rounded-md bg-primary ">
+                    <Link to={'/login'} className="block px-3 py-2 rounded-md bg-primary-gradient ">
                         <span>Log in</span>
                     </Link>
                 </div>
