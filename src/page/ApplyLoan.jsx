@@ -153,9 +153,9 @@ const ApplyLoan = () => {
                                 <div className="w-full pt-4">
                                     <h4 className="text-lg text-primary font-semibold">Enter your mobile number</h4>
                                     <div className="w-full flex items-center justify-between mt-2 relative">
-                                        <span className="p-3 bg-white rounded-md  border border-primary border-e-0 rounded-ee-none  rounded-se-none text-secondary/60">+91</span>
-                                        <input type="tel" onChange={handlemobile} maxLength={10} minLength={10} className="w-full border border-primary border-s-0  rounded-md rounded-ss-none rounded-es-none py-3 px-3" placeholder="Enter your mobile number" />
-                                        <button onClick={sendotp} className="bg-primary text-white rounded-md px-5 py-2  text-nowrap absolute end-2 top-auto start-auto">Get OTP</button>
+                                        <span className="p-3 bg-white rounded-full  border border-primary border-e-0 rounded-ee-none  rounded-se-none text-secondary/60">+91</span>
+                                        <input type="tel" onChange={handlemobile} maxLength={10} minLength={10} className="w-full border border-primary border-s-0  rounded-full rounded-ss-none rounded-es-none py-3 px-3" placeholder="Enter your mobile number" />
+                                        <button onClick={sendotp} className="bg-primary text-white rounded-full px-5 py-2  text-nowrap absolute end-2 top-auto start-auto">Get OTP</button>
                                     </div>
                                     <span className="text-danger">{error}</span>
                                     <ul className="*:py-1 mt-4 text-sm tracking-wider leading-6  text-blue-gray-500">

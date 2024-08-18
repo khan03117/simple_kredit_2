@@ -379,7 +379,12 @@ footer ul li a {
 #policycontent p, #policycontent ul li, #policycontent ol li{
   font-size: 14px;
   font-weight: 300;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+#policycontent ul li, #policycontent ol li{
+  list-style: disc;
+  list-style-position: inside;
+
 }
 .documentsection p, .documentsection ul li{
   font-size: 14px;

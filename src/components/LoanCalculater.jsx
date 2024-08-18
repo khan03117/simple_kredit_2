@@ -16,6 +16,7 @@ const LoanCalculater = () => {
         },
         plotOptions: {
             pie: {
+                
                 innerSize: '50%',
                 depth: 45,
                 allowPointSelect: false,
@@ -37,8 +38,8 @@ const LoanCalculater = () => {
             {
                 name: 'Share',
                 data: [
-                    { name: 'Principal Amount', y: Math.ceil(amount) },
-                    { name: 'Interest Amount', y: Math.ceil(emi*months - amount) },
+                    { name: 'Principal Amount', y: Math.ceil(amount) ,  color: '#e73c3e', },
+                    { name: 'Interest Amount', y: Math.ceil(emi*months - amount), color: "#ff999a" },
 
                 ]
             }

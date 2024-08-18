@@ -40,6 +40,9 @@ const Footer = () => {
                             </h5>
                             <ul>
                                 <li>
+                                    <Link to={'/about'}>About Us</Link>
+                                </li>
+                                <li>
                                     <Link to={'/loan-application'}>How to Apply</Link>
                                 </li>
                                 <li>
@@ -96,9 +99,9 @@ const Footer = () => {
 
                 </div>
             </footer>
-            <div className="w-full py-2 bg-black text-white">
+            <div className="w-full py-3 bg-black text-white">
                 <p className='text-center text-sm text-blue-gray-400'>
-                    &copy; {new Date().getFullYear()} All Rights Reserved by <Link className='underline'>SimpleKredit</Link>
+                    &copy; {new Date().getFullYear()} All Rights Reserved by <Link className=''>SimpleKredit</Link>
                 </p>
             </div>
         </>
