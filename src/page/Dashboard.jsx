@@ -3,7 +3,7 @@ const Dashboard = () => {
         <>
             <div className="w-full">
                 <h2 className="sectiontitle">
-                    Welcome to Simple Kredit use application dashboard
+                    Welcome to Simple-credit.org use application dashboard
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 my-4 gap-4">
                     <div className="w-full">

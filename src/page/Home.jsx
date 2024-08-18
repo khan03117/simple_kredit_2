@@ -146,13 +146,13 @@ const Home = () => {
                     <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 items-center">
                         <div className="w-full overflow-hidden">
                             <div className="w-full">
-                                <h4 className="text-sm text-primary">Welcome to SimpleKredit</h4>
+                                <h4 className="text-sm text-primary">Welcome to simple-credit.org </h4>
                                 <h1 className='lg:text-[4rem] text-[2rem] leading-[1.3] text-secondary font-bold'>
                                     Simplify all your banking and loan methods
                                 </h1>
                                 <div className="w-full mt-5">
                                     <div className="flex flex-wrap items-center gap-4">
-                                        <div className="flex items-center mobileotpbox">
+                                        <div className="flex w-full items-center mobileotpbox">
                                             <span className="mobilecode">+91</span>
                                             <input type="tel" value={mobile} maxLength={10} onChange={handlemobile} placeholder='Enter mobile number' className="max-w-full text-sm min-h-10 bg-transparent lg:w-[170px] w-full" />
                                             <button onClick={sendotp} className="bg-primary px-5 py-3 lg:text-md text-sm text-nowrap rounded-full text-white">

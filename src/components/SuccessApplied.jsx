@@ -40,7 +40,7 @@ const SuccessApplied = (props) => {
             {props?.msg} We will contact you soon.
           </p>
           <Link target='_blank' to={`https://wa.me/91${agent}?text=${wmsg}. Please contact me.`} className="bg-primary text-white py-2 px-4 rounded-md text-sm">
-            Talk to SimpleKredit
+            Talk to simple-credit.org
           </Link>
         </div>
       </div>

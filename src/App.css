@@ -32,7 +32,7 @@ input.block, select.block{
 }
 .navbar-brand {
   max-width: 200px;
-  filter: invert(100%);
+
 }
 .container {
   margin: 0 auto;

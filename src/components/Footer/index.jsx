@@ -28,7 +28,7 @@ const Footer = () => {
                         <div className="w-full footerabout">
                             <h4>We re on a mission.</h4>
                             <p>
-                                At Simplekredit, we’re using cutting-edge technology to transform the industry and deliver financial services that actually work for you.
+                                At simple-credit.org, we’re using cutting-edge technology to transform the industry and deliver financial services that actually work for you.
                             </p>
                             <div className="w-full">
                                 <img src={trustimg} alt="" />
@@ -101,7 +101,7 @@ const Footer = () => {
             </footer>
             <div className="w-full py-3 bg-black text-white">
                 <p className='text-center text-sm text-blue-gray-400'>
-                    &copy; {new Date().getFullYear()} All Rights Reserved by <Link className=''>SimpleKredit</Link>
+                    &copy; {new Date().getFullYear()} All Rights Reserved by <Link className=''>simple-credit.org</Link>
                 </p>
             </div>
         </>
