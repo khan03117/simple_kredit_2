@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 const Documents = () => {
     return (
@@ -69,7 +70,7 @@ const Documents = () => {
                                     </ul>
                                     <h3>For a Smooth Loan Application Process</h3>
                                     <div className="text-start">
-                                        <a href="https://wa.me/917602059546" target="_blank" className="btn bg-primary text-white font-bold uppercase tracking-wider px-10 py-3 rounded-md">Get Instance Loan</a>
+                                        <Link to={'/loan-application'} className="btn bg-primary text-white font-bold uppercase tracking-wider px-10 py-3 rounded-md" >Get Instance Loan</Link>
                                     </div>
 
                                 </div>
