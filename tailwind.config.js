@@ -17,7 +17,7 @@ export default withMT({
         'danger' : "#FF5733"
       },
       backgroundImage: {
-        'primary-gradient': 'linear-gradient(90deg, #e73c3e 0%, #00ACCC 100%)',
+        'primary-gradient': 'linear-gradient(90deg, #e73c3e 0%, #e73c3e 100%)',
       },
     },
   },

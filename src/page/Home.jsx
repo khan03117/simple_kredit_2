@@ -246,7 +246,7 @@ const Home = () => {
             </section>
             <section className="py-16 bg-primary text-white">
                 <div className="container">
-                    <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
+                    <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-2 gap-4">
                         <div className="w-full text-center">
                             <h1 className='text-[3rem] font-bold'>120K</h1>
                             <h4 className='text-lg font-light'>Loans Taken</h4>
