@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 const Documents = () => {
     return (
         <>
-            <section className="lg:py-28 py-20 documentsection">
+            <section className="py-28  documentsection">
                 <div className="container mx-auto">
                     <div className="grid grid-cols-1">
                         <div className="w-full">

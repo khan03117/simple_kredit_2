@@ -17,7 +17,7 @@ import ContactForm from './ContactForm';
 import SimpleCalculator from '../components/SimpleCalclulator';
 
 const Home = () => {
-    const [mobile, setMobile] = useState(null);
+    const [mobile, setMobile] = useState('');
     const [errs, setErrs] = useState([]);
     const [loans, setLoans] = useState([]);
     const [open, setOpen] = useState(false);
@@ -62,7 +62,6 @@ const Home = () => {
                 headers: headers
             }).then((resp) => {
                 if (resp.data.is_success == "1") {
-
                     setOpen(true);
                 } else {
                     setErrs(resp.data.errors);
@@ -71,13 +70,11 @@ const Home = () => {
         }
     }
     const getloans = async () => {
-
         await axios.get(`${base_url}api/loans`, {
             headers: headers
         }).then((resp) => {
             setLoans(resp.data);
         })
-
     }
     const handleOpen = () => {
         setOpen(!open);
@@ -152,9 +149,9 @@ const Home = () => {
                                 </h1>
                                 <div className="w-full mt-5">
                                     <div className="flex flex-wrap items-center gap-4">
-                                        <div className="lg:inline-flex flex lg:w-fit w-full items-center mobileotpbox">
+                                        <div className="lg:inline-flex bg-white flex lg:w-fit w-full items-center mobileotpbox">
                                             <span className="mobilecode">+91</span>
-                                            <input type="tel" value={mobile} maxLength={10} onChange={handlemobile} placeholder='Enter mobile number' className="max-w-full text-sm min-h-10 bg-transparent lg:w-[170px] w-full" />
+                                            <input type="tel" value={mobile} maxLength={10} onChange={handlemobile} placeholder='Enter mobile number' className="max-w-full bg-white text-sm min-h-10 bg-transparent lg:w-[170px] w-full" />
                                             <button onClick={sendotp} className="bg-primary px-5 py-3 lg:text-md text-sm text-nowrap rounded-full text-white">
                                                 Apply Now
                                             </button>

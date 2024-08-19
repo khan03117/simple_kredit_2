@@ -8,6 +8,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { base_url, headers } from "../utils";
 import parse from 'html-react-parser';
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 const Faq = () => {
     const [open, setOpen] = React.useState(0);
     const [faqs, setFaqs] = useState([]);
@@ -35,8 +36,24 @@ const Faq = () => {
                                     faqs.map((faa) => (
                                         <>
                                             <Accordion open={open == faa.id}>
-                                                <AccordionHeader onClick={() => handleOpen(faa.id)}>
-                                                    {faa.faq}
+                                                <AccordionHeader className="relative text-primary" onClick={() => handleOpen(faa.id)}>
+                                                    {faa.faq}  <div className="absolute text-primary end-2 top-2">
+                                                        {
+                                                            faa.id == open ? (<>
+                                                                <span>
+                                                                    <MinusOutlined />
+                                                                </span>
+                                                            </>) : (
+                                                                <>
+                                                                    <span>
+                                                                        <PlusOutlined />
+                                                                    </span>
+                                                                </>
+                                                            )
+                                                        }
+
+
+                                                    </div>
                                                 </AccordionHeader>
                                                 <AccordionBody>
                                                     {parse(faa.explain)}
@@ -45,8 +62,8 @@ const Faq = () => {
                                         </>
                                     ))
                                 }
-                             
-                              
+
+
                             </div>
                         </div>
 

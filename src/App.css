@@ -38,7 +38,7 @@ input.block, select.block{
   margin: 0 auto;
 }
 .homesection {
-  background-image: url(./assets/image/shape-3.png);
+  background-image: linear-gradient(#fff, #ffffffe4), url(./assets/image/shape-1.png);
   background-position: center left;
   background-size: contain;
   background-repeat: no-repeat;

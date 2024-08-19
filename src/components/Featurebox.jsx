@@ -55,6 +55,6 @@ const Featurebox = ({title, index}) => {
 }
 Featurebox.propTypes = {
     title: PropTypes.string.isRequired, // Define 'title' as a required string prop
-    index : PropTypes.string
+    index : PropTypes.number
 };
 export default Featurebox

@@ -3,11 +3,11 @@ import { base_url, headers } from "../utils";
 import { useState } from "react";
 
 const ContactForm = () => {
-    const [name, setName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [mobile, setMobile] = useState(null);
-    const [message, setMessage] = useState(null);
-    const [msg, setMsg] = useState(null);
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [mobile, setMobile] = useState('');
+    const [message, setMessage] = useState('');
+    const [msg, setMsg] = useState('');
     const [errors, setErrors] = useState([]);
     const sendMessage = async () => {
         const data = {
@@ -19,10 +19,10 @@ const ContactForm = () => {
         await axios.post(`${base_url}api/contact-query`, { ...data }, { headers: headers }).then((resp) => {
             setMsg(resp.data.message);
             if (resp.data.is_success == "1") {
-                setName(null)
-                setEmail(null)
-                setMobile(null)
-                setMessage(null)
+                setName('')
+                setEmail('')
+                setMobile('')
+                setMessage('')
             }
             return setErrors(resp.data.errors);
 

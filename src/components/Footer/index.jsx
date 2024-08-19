@@ -20,9 +20,9 @@ const Footer = () => {
                 <div className="container">
                     <div className="w-full mb-20 ">
                         <h4 className="text-lg">Disclaimer :</h4>
-                        <p className='text-xs tracking-[1px] leading-6 font-light'>
+                        <div className='text-xs tracking-[1px] leading-6 font-light'>
                             {parse(disclaimer)}
-                        </p>
+                        </div>
                     </div>
                     <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4">
                         <div className="w-full footerabout">
@@ -76,6 +76,12 @@ const Footer = () => {
                                 </li>
                                 <li>
                                     <Link to={'/policy/terms-conditions'}>Terms & Conditions</Link>
+                                </li>
+                                <li>
+                                    <Link to={'/policy/refund-policy'}>Refund Policy</Link>
+                                </li>
+                                <li>
+                                    <Link to={'/policy/fee-charges'}>Fee & Charges</Link>
                                 </li>
                             </ul>
                         </div>
