@@ -8,8 +8,10 @@ import {
 } from "@material-tailwind/react";
 import logo from '../../assets/image/logo.png'
 import { Link, useLocation } from "react-router-dom";
+import { UserOutlined } from "@ant-design/icons";
 
 export function StickyNavbar() {
+    const token = JSON.parse(localStorage.getItem('auth_token'));
     const location = useLocation();
     const [openNav, setOpenNav] = React.useState(false);
 
@@ -91,14 +93,22 @@ export function StickyNavbar() {
                 <div className="flex items-center gap-4">
                     <div className="mr-4 hidden lg:block">{navList}</div>
                     <div className="flex items-center gap-x-1">
-                        {/* <Button
-                            variant="text"
+                      
+                      {
+                        token ? (
+                            <>
+                             <Link  to={'/dashboard'}
+                            variant="gradient"
                             size="lg"
-                            className="hidden lg:inline-block"
+                            color="green"
+                            className="hidden lg:inline-block px-8 py-3 rounded-md bg-primary text-white font-bold"
                         >
-                            <span>Log In</span>
-                        </Button> */}
-                        <Link  to={'/login'}
+                            <span> <UserOutlined/> Dashboard</span>
+                        </Link>
+                            </>
+                        ) : (
+                            <>
+                             <Link  to={'/login'}
                             variant="gradient"
                             size="lg"
                             color="green"
@@ -106,6 +116,10 @@ export function StickyNavbar() {
                         >
                             <span>Sign in</span>
                         </Link>
+                            </>
+                        )
+                      }
+                       
                     </div>
                     <IconButton
                         variant="text"

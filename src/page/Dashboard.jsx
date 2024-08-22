@@ -1,23 +1,26 @@
+import adv1 from '../assets/image/adv-1.png';
+import adv2 from '../assets/image/adv-2.png';
 const Dashboard = () => {
+
     return (
         <>
             <div className="w-full">
                 <h2 className="sectiontitle">
-                    Welcome to Simple-credit.org use application dashboard
+                   Welcome To Simple Credit user application dashboard
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 my-4 gap-4">
                     <div className="w-full">
-                        <img src="https://cuadvertising.net/wp-content/uploads/2017/08/client-carloans-4.jpg" alt="" className="w-full rounded-lg" />
+                        <img src={adv1} alt="" className="w-full rounded-lg" />
                     </div>
                     <div className="w-full">
-                        <img src="https://cuadvertising.net/wp-content/uploads/2017/08/client-carloans-4.jpg" alt="" className="w-full rounded-lg" />
+                        <img src={adv2} alt="" className="w-full rounded-lg" />
                     </div>
                 </div>
 
                 <div className="w-full">
                     <div className="w-full bg-primary/20 rounded-xl text-center py-20 px-20">
                         <p className="text-3xl text-green-800 text-center">
-                            You dont have any loan.
+                           Your loan request is under process.
                         </p>
                         <div className="w-full mt-5">
                             <a

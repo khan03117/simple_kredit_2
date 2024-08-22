@@ -143,7 +143,7 @@ const Home = () => {
                     <div className="grid lg:grid-cols-2 grid-cols-1 gap-4 items-center">
                         <div className="w-full overflow-hidden">
                             <div className="w-full">
-                                <h4 className="text-sm text-primary">Welcome to simple-credit.org </h4>
+                                <h4 className="text-sm text-primary">Welcome To Simple Credit </h4>
                                 <h1 className='lg:text-[4rem] text-[2rem] leading-[1.3] text-secondary font-bold'>
                                     Simplify all your banking and loan methods
                                 </h1>
