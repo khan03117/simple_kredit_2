@@ -119,7 +119,7 @@ const LoanCalculater = () => {
                                     <div className="form-group mb-8">
                                         <label className='formlabel' htmlFor="">Enter Amount  </label>
                                         <div className="relative w-full">
-                                            <input onChange={handleamount} type="range" style={{ background: `linear-gradient(to right, rgb(255 0 0) ${(amount / 1000000) * 100}%, rgb(221, 221, 221) ${(amount / 1000000) * 100}%)` }} step={500} max={1000000} value={amount} className="w-full progress-box" />
+                                            <input onChange={handleamount} type="range" style={{ background: `linear-gradient(to right, rgb(255 0 0) ${(amount / 25000000) * 100}%, rgb(221, 221, 221) ${(amount / 25000000) * 100}%)` }} min={50000} step={500} max={25000000} value={amount} className="w-full progress-box" />
                                             <span className='absolute -top-8 end-0  z-10'>
                                                 <span className="text-primary size-8 leading-8 rounded-s-md text-center  bg-primary/20 inline-block">&#8377;</span>
                                                 <input type="text" name="" onChange={handleamount} value={amount} id="" className="w-24  bg-primary/20  text-primary font-bold outline-none h-8 leading-8 px-3 ps-0 rounded-md rounded-s-none" />
