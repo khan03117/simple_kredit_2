@@ -1,6 +1,21 @@
-import { Link } from "react-router-dom"
+import React from "react";
+import { base_url, headers } from "../utils";
+import axios from "axios";
 
 const Documents = () => {
+    
+    const [policy, setPolicy] = React.useState(null);
+
+    const getPolicy = async () => {
+
+        await axios.get(`${base_url}api/policy/documents`, { headers: headers }).then((resp) => {
+            setPolicy(resp.data.data);
+
+        })
+    }
+    React.useEffect(() => {
+        getPolicy();
+    }, [])
     return (
         <>
             <section className="py-28  documentsection">
@@ -8,7 +23,7 @@ const Documents = () => {
                     <div className="grid grid-cols-1">
                         <div className="w-full">
                             <h2 className="sectiontitle">Document checklist for loan application</h2>
-                            <div className="w-full mt-3">
+                            {/* <div className="w-full mt-3">
                                 <div className="markdown prose w-full break-words dark:prose-invert light">
                                     <p>Applying for a loan typically requires a variety of documents to verify your identity, income, employment, and
                                         financial situation. Here s a comprehensive list of documents you may need for a loan application:</p>
@@ -74,6 +89,18 @@ const Documents = () => {
                                     </div>
 
                                 </div>
+                            </div> */}
+                            <div className="content">
+                                {
+                                    policy && (
+                                        <>
+                                        <div id="policycontent">
+                                        <div dangerouslySetInnerHTML={{ __html: policy?.policy }}></div>
+                                    </div>
+                                        </>
+                                    )
+                                }
+                                
                             </div>
                         </div>
                     </div>
