@@ -116,7 +116,7 @@ img {
   width: 70px;
   height: 70px;
   line-height: 60px;
-  background-color: #00c195;
+  background-color: #e73c3e;
   text-align: center;
   color: #fff;
   font-size: 30px;
@@ -124,12 +124,12 @@ img {
   border-radius: 50%;
 }
 .invoices.v1 .invoices-card:hover {
-  background-color: #00c195;
+  background-color: #e73c3e;
   color: #fff;
 }
 .invoices.v1 .invoices-card:hover .read-more.v2 {
   background-color: #fff;
-  color: #00c195;
+  color: #e73c3e;
 }
 
 .invoices.v1 .invoices-card .numbber-stitle {
@@ -254,7 +254,7 @@ footer ul li a {
   display: block;
   position: relative;
   font-weight: 600;
-  color: #00c195;
+  color: #e73c3e;
   padding-bottom: 5px;
   margin-bottom: 10px;
  
@@ -288,13 +288,19 @@ footer ul li a {
   position: absolute;
   left: 10px;
   height: 100%;
-  border-left: 1px solid #00c195;
+  border-left: 1px solid #e73c3e;
   top: 26px;
   z-index: -1;
 }
 .stepsul li svg{
  width: 20px;
  height: 20px;
+}
+.otpcontainer input{
+  width:40px !important;
+  height: 40px !important;
+  border: 1px solid gray;
+  border-radius: 4px;
 }
 
 @media (max-width:600px) {
@@ -424,6 +430,18 @@ footer ul li a {
 }
 .dashboardlayout.sidebarcollapse  .content{
   width: calc(100% - 100px);
+}
+.contactTitle{
+  position: relative;
+}
+.contactTitle::before{
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  width: 60px;
+  height: 5px;
+  border-radius: 4rem;
+background-color: #e73c3e;
 }
 
 @media (max-width:600px) {

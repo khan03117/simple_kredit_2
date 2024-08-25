@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios';
 import { base_url, headers } from '../../utils';
 import parse from 'html-react-parser';
+import logo from '../../assets/image/logo.png'
 const Footer = () => {
     const [disclaimer, setDisclaimer] = useState('...Loading');
     const get_disclaimer = async () => {
@@ -18,14 +19,12 @@ const Footer = () => {
         <>
             <footer className="footerbg text-white">
                 <div className="container">
-                    <div className="w-full mb-20 ">
-                        <h4 className="text-lg">Disclaimer :</h4>
-                        <div className='text-xs tracking-[1px] leading-6 font-light'>
-                            {parse(disclaimer)}
-                        </div>
-                    </div>
+
                     <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4">
                         <div className="w-full footerabout">
+                            <div className="w-full mb-4">
+                                <img src={logo} alt="logo" className="max-w-[80%] invert-[1]"/>
+                            </div>
                             <h4>We re on a mission.</h4>
                             <p>
                                 At simple-credit.org, we’re using cutting-edge technology to transform the industry and deliver financial services that actually work for you.
@@ -100,6 +99,15 @@ const Footer = () => {
                                     <Link to={'/policy/marketing-advertising'}>Marketing and Advertising</Link>
                                 </li>
                             </ul>
+                        </div>
+
+                    </div>
+                    <div className="w-full">
+                        <div className="w-full ">
+                            <h4 className="text-lg">Disclaimer :</h4>
+                            <div className='text-xs tracking-[1px] leading-6 font-light'>
+                                {parse(disclaimer)}
+                            </div>
                         </div>
                     </div>
 
