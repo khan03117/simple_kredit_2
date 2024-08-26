@@ -62,7 +62,11 @@ const Home = () => {
                 headers: headers
             }).then((resp) => {
                 if (resp.data.is_success == "1") {
-                    setOpen(true);
+                    if(resp.data.otp == "1"){
+                        setOpen(true);
+                    }else{
+                        navigate('/apply?mobile=' + mobile, { state: { mobile: mobile } });
+                    }                    
                 } else {
                     setErrs(resp.data.errors);
                 }
