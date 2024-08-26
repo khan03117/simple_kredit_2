@@ -26,7 +26,7 @@ const ApplyLoan = () => {
         setMobile(e.target.value);
     }
     const navigate = useNavigate();
-    
+
     // const handleotp = (e) => {
     //     const key = e.target.name;
     //     const value = e.target.value;
@@ -52,11 +52,11 @@ const ApplyLoan = () => {
                 headers: headers
             }).then((resp) => {
                 if (resp.data.is_success == "1") {
-                    if(resp.data.otp == "1"){
+                    if (resp.data.otp == "1") {
                         setOpen(true);
-                    }else{
+                    } else {
                         navigate('/apply?mobile=' + mobile, { state: { mobile: mobile } });
-                    } 
+                    }
                 } else {
                     setOpen(false);
                     setError(resp.data.errors.mobile[0])
@@ -126,9 +126,9 @@ const ApplyLoan = () => {
                                         {
                                             !open && (
                                                 <>
-                                             
-                                        <button disabled={open} onClick={sendotp} className="bg-primary text-white rounded-full px-5 py-2  text-nowrap absolute end-2 top-auto start-auto">Get OTP</button>
-                                        </>
+
+                                                    <button disabled={open} onClick={sendotp} className="bg-primary text-white rounded-full px-5 py-2  text-nowrap absolute end-2 top-auto start-auto">Get OTP</button>
+                                                </>
                                             )
                                         }
                                     </div>

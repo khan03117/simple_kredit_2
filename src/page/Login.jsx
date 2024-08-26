@@ -1,52 +1,25 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { base_url, headers } from "../utils";
 import loginimg from '../assets/image/login.png'
-import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router";
-
+import OtpInput from 'react-otp-input';
 const Login = () => {
+    const [otp, setOtp] = useState('');
     const [mobile, setMobile] = useState(null);
     const [error, setError] = useState(null);
     const [open, setOpen] = useState(false);
-    const [otp1, setOtp1] = useState(null);
-    const [otp2, setOtp2] = useState(null);
-    const [otp3, setOtp3] = useState(null);
-    const [otp4, setOtp4] = useState(null);
+
     const navigate = useNavigate();
-    const ref1 = useRef(null);
-    const ref2 = useRef(null);
-    const ref3 = useRef(null);
-    const ref4 = useRef(null);
+
     const handlemobile = (e) => {
         setError(null);
         setMobile(e.target.value);
     }
-    const handleOpen = () => {
-        setOpen(!open);
-    }
-    const handleotp = (e) => {
-        const key = e.target.name;
-        const value = e.target.value;
-        if (key == "otp1") {
-            setOtp1(value);
-            ref2.current.focus();
-        }
-        if (key == "otp2") {
-            setOtp2(value);
-            ref3.current.focus();
-        }
-        if (key == "otp3") {
-            setOtp3(value);
-            ref4.current.focus();
-        }
-        if (key == "otp4") {
-            setOtp4(value);
-        }
-    }
+  
     const verify_otp = () => {
-        if (otp1 && otp2 && otp3 && otp4) {
-            const otp = otp1 + otp2 + otp3 + otp4;
+        if (otp) {
             axios.post(`${base_url}api/verify-login`, { mobile: mobile, otp: otp }, {
                 headers: headers
             }).then((resp) => {
@@ -63,8 +36,11 @@ const Login = () => {
                 headers: headers
             }).then((resp) => {
                 if (resp.data.is_success == "1") {
-
-                    setOpen(true);
+                    if (resp.data.otp == "1") {
+                        setOpen(true);
+                    } else {
+                        navigate('/dashboard' + mobile, { state: { mobile: mobile } });
+                    }
                 } else {
                     setOpen(false);
                     setError(resp.data.error.mobile[0])
@@ -74,42 +50,6 @@ const Login = () => {
     }
     return (
         <>
-            {
-                open && (
-                    <>
-                        <Dialog className="customdialog" dismiss={
-                            {
-                                enabled: false,
-                                escapeKey: false
-                            }
-
-                        } open={open} handler={handleOpen}>
-                            <DialogHeader>Verify OTP</DialogHeader>
-                            <DialogBody >
-                                <div className="grid grid-cols-4 gap-3">
-                                    <input type="text" name="otp1" maxLength={1} ref={ref1} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp2" maxLength={1} ref={ref2} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp3" maxLength={1} ref={ref3} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                    <input type="text" name="otp4" maxLength={1} ref={ref4} onChange={handleotp} className="border rounded-md text-center border-blue-gray-500 h-14" />
-                                </div>
-                            </DialogBody>
-                            <DialogFooter>
-                                <Button
-                                    variant="outlined"
-                                    color="red"
-                                    onClick={handleOpen}
-                                    className="mr-1"
-                                >
-                                    <span>Cancel</span>
-                                </Button>
-                                <Button variant="gradient" color="green" onClick={verify_otp}>
-                                    <span>Confirm</span>
-                                </Button>
-                            </DialogFooter>
-                        </Dialog>
-                    </>
-                )
-            }
 
             <section className="lg:py-28 py-20">
                 <div className="container">
@@ -126,9 +66,43 @@ const Login = () => {
                                         <div className="w-full flex items-center justify-between mt-2 relative">
                                             <span className="lg:p-3 p-2 bg-white rounded-md  border border-primary border-e-0 rounded-ee-none  rounded-se-none text-secondary/60 lg:text-sm text-xs">+91</span>
                                             <input type="text" onChange={handlemobile} maxLength={10} minLength={10} className="w-full border lg:text-sm text-xs border-primary border-s-0  rounded-md rounded-ss-none rounded-es-none lg:p-3 p-2" placeholder="Enter your mobile number" />
-                                            <button onClick={sendotp} className="bg-primary text-white rounded-md lg:px-5 px-3 py-2 text-xs  text-nowrap absolute lg:end-2 end-0 top-auto start-auto">Get OTP</button>
+                                            {
+                                                !open && (
+                                                    <>
+                                                        <button onClick={sendotp} className="bg-primary text-white rounded-md lg:px-5 px-3 py-2 text-xs  text-nowrap absolute lg:end-2 end-0 top-auto start-auto">Get OTP</button>
+
+                                                    </>
+                                                )
+                                            }
                                         </div>
                                         <span className="text-danger">{error}</span>
+                                    </div>
+                                    <div className="w-full">
+                                        {
+                                            open && (
+                                                <>
+                                                    <div className="flex py-3 items-center gap-1 flex-wrap">
+                                                        <div className="w-full mb-2 otpcontainer">
+                                                            <OtpInput
+                                                                value={otp}
+                                                                onChange={setOtp}
+                                                                numInputs={4}
+                                                                className="size-10 border border-blue-gray-600"
+                                                                renderSeparator={<span className="me-1"></span>}
+                                                                renderInput={(props) => <input {...props} />}
+                                                            />
+                                                        </div>
+                                                        <Button variant="gradient" className="rounded-full py-2 px-4 md:text-md text-xs font-light" color="red" onClick={verify_otp}>
+                                                            <span>Confirm</span>
+                                                        </Button>
+                                                        <Button variant="gradient" className="rounded-full px-4 py-2 md:text-md text-xs font-light" color="gray" onClick={() => setOpen(false)}>
+                                                            <span>Resend</span>
+                                                        </Button>
+                                                    </div>
+
+                                                </>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
