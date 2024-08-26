@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 
 import Featurebox from '../components/Featurebox';
-import applyimg from '../assets/image/apply.jpg'
 import ServiceCard from '../components/ServiceCard';
 // import customerimg from '../assets/image/Costumer.png';
 import axios from 'axios';
@@ -14,7 +13,8 @@ import LoanCalculater from '../components/LoanCalculater';
 import contactimg from '../assets/image/contact_us.png'
 import { Link } from 'react-router-dom';
 import ContactForm from './ContactForm';
-import SimpleCalculator from '../components/SimpleCalclulator';
+import homeimg from '../assets/image/apply.png'
+import aboutimg from '../assets/image/home-bg.jpg'
 
 const Home = () => {
     const [mobile, setMobile] = useState('');
@@ -62,11 +62,11 @@ const Home = () => {
                 headers: headers
             }).then((resp) => {
                 if (resp.data.is_success == "1") {
-                    if(resp.data.otp == "1"){
+                    if (resp.data.otp == "1") {
                         setOpen(true);
-                    }else{
+                    } else {
                         navigate('/apply?mobile=' + mobile, { state: { mobile: mobile } });
-                    }                    
+                    }
                 } else {
                     setErrs(resp.data.errors);
                 }
@@ -178,7 +178,7 @@ const Home = () => {
                         </div>
                         <div className="w-full ">
                             <div className="w-full lg:block hidden">
-                                <SimpleCalculator />
+                                <img src={homeimg} alt="" className="max-w-full text-end" />
                             </div>
                         </div>
                     </div>
@@ -238,7 +238,7 @@ const Home = () => {
                         </div>
                         <div className="col-span-1">
                             <div className="w-full">
-                                <img src={applyimg} alt="" className="max-w-full" />
+                                <img src={aboutimg} alt="" className="max-w-full" />
                             </div>
                         </div>
 
@@ -316,7 +316,7 @@ const Home = () => {
             <section className='py-10'>
                 <div className="container mx-auto">
                     <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
-                      
+
                         <div className="col-span-1">
                             <div className="w-full mb-10">
                                 <h3 className="sectiontitle">

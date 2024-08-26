@@ -30,16 +30,16 @@ const Contact = () => {
                     </div>
                     <div className="grid md:grid-cols-12 grid-cols-1 gap-5">
 
-                        <div className="col-span-4">
+                        <div className="lg:col-span-4 col-span-1">
                             <ContactForm />
                         </div>
-                        <div className="col-span-8">
+                        <div className="lg:col-span-8 col-span-1">
                             <div className="w-full mb-10 h-full">
                                 <h3 className="sectiontitle">
                                     Contact Us
                                 </h3>
                                 <div className="w-full h-full">
-                                    <div className="grid grid-cols-2 gap-4">
+                                    <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
                                         {
                                             items.map((itm) => (
                                                 <>
