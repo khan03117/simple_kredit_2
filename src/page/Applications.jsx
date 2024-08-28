@@ -2,6 +2,7 @@ import axios from "axios"
 import { base_url, headers } from "../utils"
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router";
+import { WhatsAppOutlined } from "@ant-design/icons";
 
 const Applications = () => {
     const [apps, setApps] = useState([]);
@@ -44,57 +45,81 @@ const Applications = () => {
                         <div className="w-full overflow-y-auto">
                             <h1 className="sectiontitle mb-5">Applications</h1>
 
-                            <table border={1} className="table-fixed w-full border text-xs border-blue-gray-300">
-                                <thead>
-                                <tr className='*:p-2  *:lg:w-max *:w-28 *:text-nowrap w-full *:border *:border-blue-gray-300'>
-                                        <th>Application Id</th>
-                                        <th>Loan</th>
-                                        <th>Amount</th>
-                                        <th>Tenure</th>
-                                        <th>Interest Rate</th>
-                                        <th>Emi</th>
-                                        <th>File Charge</th>
-                                        <th>Application Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        apps.map((app, index) => (
-                                            <>
-                                                <tr className='*:p-2 text-center *:border *:border-blue-gray-300'>
-                                                    <td>{index + 1}</td>
-                                                    <td>{app.application_id}</td>
-                                                    <td>{app.loan.amount}</td>
-                                                    <td>{app.loan.tenure} Years</td>
-                                                    <td>{app.loan.interest_rate}%</td>
-                                                    <td>{app.loan.emi.toFixed(2)}</td>
-                                                    <td>
-                                                        {app.file_charge.toFixed(2)}
-                                                    </td>
-                                                    <td>
-                                                        {
-                                                            app.loan.approve_at ? (<>
-                                                                <span className="inline-block px-3 py-1 text-xs rounded-full bg-primary text-white">Approved</span>
-
-                                                            </>) : (<>
-                                                                <span className="inline-block px-3 py-1 text-xs rounded-full bg-yellow-900 text-white">Pending</span>
-
-                                                            </>)
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        <button onClick={() => sendtowhatsapp()} className="px-3 py-2 bg-primary text-white rounded-lg text-nowrap font-bold">Contact Us</button>
-                                                    </td>
-                                                </tr>
-                                            </>
-                                        ))
-                                    }
-
-                                </tbody>
-                            </table>
 
                         </div>
+                    </div>
+                    <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
+                        {
+                            apps.map((app) => (
+                                <>
+                                    <div className="col-span-1">
+                                        <div className="w-full">
+                                            <div className="w-[90%] mx-auto text-white bg-primary p-4 rounded-lg relative">
+                                                <p>Loan Amount</p>
+                                                <h4 className="font-bold text-3xl mb-10 text-white">
+                                                    &#8377;  {app.loan.amount}
+                                                </h4>
+                                                <img src="https://clipground.com/images/credit-card-chip-clipart-2.png" className="absolute top-4 end-4 size-8 object-contain" alt="" />
+                                                <div className="flex justify-between">
+                                                    <p>App Id: {app.application_id}</p>
+                                                    <p>
+                                                        {app.loan.tenure} Yrs.
+                                                    </p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div className="w-full *:text-primary font-bold text-sm *:pb-2 bg-yellow-100 p-4 rounded-lg shadow-sm shadow-yellow-900 pt-10 -mt-6">
+                                            <div className="flex justify-between ">
+                                                <div>
+                                                    Interest Rate
+                                                </div>
+                                                <div className="text-end text-black">
+                                                    {app.loan.interest_rate}
+                                                </div>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <div>
+                                                    EMI
+                                                </div>
+                                                <div className="text-end text-black">
+                                                &#8377; {app.loan.emi.toFixed(2)}
+                                                </div>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <div>
+                                                    Status
+                                                </div>
+                                                <div className="text-end">
+                                                    {
+                                                        app.loan.approve_at ? (<>
+                                                            <span className="inline-block px-3 py-1 text-xs rounded-full bg-primary text-white">Approved</span>
+
+                                                        </>) : (<>
+                                                            <span className="inline-block px-3 py-1 text-xs rounded-full bg-yellow-900 text-white">Pending</span>
+
+                                                        </>)
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <div>
+                                                    Contact us
+                                                </div>
+                                                <div>
+                                                    <button className="text-3xl text-green-800" onClick={sendtowhatsapp} >
+                                                        <WhatsAppOutlined/>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </>
+                            ))
+                        }
                     </div>
                 </div>
             </section>

@@ -35,7 +35,7 @@ const AuthLayout = () => {
                 <div className="w-full p-5">
                     <ul className=" list-inside *:py-3">
                         <li>
-                            <Link to="/dashboard" className={`${pathname == "/dashboard" ? 'text-green-800 font-semibold bg-primary/20' : "text-gray-500"} lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
+                            <Link to="/dashboard" className={`${pathname == "/dashboard" ? 'text-primary font-semibold bg-primary/20' : "text-gray-500"} lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
                                 <span className="icon me-4">
                                     <DashboardOutlined />
                                 </span>
@@ -43,7 +43,7 @@ const AuthLayout = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/application" className={`${pathname == "/application" ? 'text-green-800 font-semibold bg-primary/20' : "text-gray-500"} lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
+                            <Link to="/application" className={`${pathname == "/application" ? 'text-primary font-semibold bg-primary/20' : "text-gray-500"} lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
                                 <span className="icon me-4">
                                     <FormOutlined />
                                 </span>
@@ -51,7 +51,7 @@ const AuthLayout = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/bank" className={`${pathname == "/bank" ? 'text-green-800 font-semibold bg-primary/20' : "text-gray-500"} lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
+                            <Link to="/bank" className={`${pathname == "/bank" ? 'text-primary font-semibold bg-primary/20' : "text-gray-500"} lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
                                 <span className="icon me-4">
                                     <DollarOutlined />
                                 </span>
@@ -59,7 +59,7 @@ const AuthLayout = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to={`/transactions`} className={`${pathname == "/transactions" ? 'text-green-800 font-semibold bg-primary/20' : "text-gray-500"} lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
+                            <Link to={`/transactions`} className={`${pathname == "/transactions" ? 'text-primary font-semibold bg-primary/20' : "text-gray-500"} lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
                                 <span className="icon me-4">
                                     <CreditCardFilled />
                                 </span>
@@ -67,7 +67,7 @@ const AuthLayout = () => {
                             </Link>
                         </li>
                         <li>
-                            <button onClick={logout} className={`${pathname == "/logout" ? 'text-green-800 font-semibold bg-primary/20' : "text-gray-500"} text-start lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
+                            <button onClick={logout} className={`${pathname == "/logout" ? 'text-primary font-semibold bg-primary/20' : "text-gray-500"} text-start lg:text-lg text-sm block w-full rounded-lg shadow-md shadow-blue-gray-100 lg:p-4 p-2 hover:text-gray-700`}>
                                 <span className="icon me-4">
                                     <LogoutOutlined />
                                 </span>
