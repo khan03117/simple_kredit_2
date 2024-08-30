@@ -149,7 +149,7 @@ const Home = () => {
                             <div className="w-full">
                                 <h4 className="text-sm text-primary">Welcome To Simple Credit </h4>
                                 <h1 className='lg:text-[4rem] text-[2rem] leading-[1.3] text-secondary font-bold'>
-                                    Simplify all your banking and loan methods
+                                Get Personal Loan of up to ₹25 Lakhs 
                                 </h1>
                                 <div className="w-full mt-5">
                                     <div className="flex flex-wrap items-center gap-4">
