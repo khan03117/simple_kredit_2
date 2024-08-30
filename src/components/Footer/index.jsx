@@ -124,7 +124,7 @@ const Footer = () => {
                 </div>
             </footer>
             <div className="w-full py-5 text-center bg-black text-white">
-                <p className="text-sm">&copy; {new Date().getFullYear()} All Rights Reserved by simple-credit.org </p>
+                <p className="text-sm pb-2">&copy; {new Date().getFullYear()} All Rights Reserved by simple-credit.org </p>
                 <div className="border-t border-white block w-full h-1"></div>
                 <div className='text-center text-sm' dangerouslySetInnerHTML={{ __html: copyright?.policy }}></div>
             </div>
