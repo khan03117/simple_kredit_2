@@ -84,7 +84,7 @@ const LoanDetails = (props) => {
                 </div>
                 <div className="form-group mb-4">
                     <label className='block formlabel' htmlFor="">Enter Amount</label>
-                    <input type="text" value={props?.data?.amount} name='amount' onChange={handleloanamount} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
+                    <input type="number" min={50000} max={2500000} value={props?.data?.amount} name='amount' onChange={handleloanamount} className=" block min-h-10 rounded-md border border-gray-500 w-full" />
                     <span className="text-danger block text-sm">
                         {props.errs.find(obj => obj.path === 'amount')?.error}
                     </span>

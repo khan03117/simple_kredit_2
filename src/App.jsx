@@ -16,6 +16,7 @@ import Dashboard from './page/Dashboard'
 import Applications from './page/Applications'
 import Banks from './page/Banks'
 import Transactions from './page/Transactions'
+import Regulatory from './page/Regulatory'
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path='/document-list' element={<Documents />} />
           <Route path='/login' element={<Login />} />
           <Route path='/contact' element={<Contact />} />
+          <Route path="/regulatory" element={<Regulatory/>} />
         </Route>
         <Route path='/' element={<AuthLayout />}>
           <Route path='/dashboard' element={<Dashboard />} />

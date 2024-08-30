@@ -209,6 +209,17 @@ img {
   font-size: 22px;
   font-weight: 500;
   margin-bottom: 0.6rem;
+  position: relative;
+}
+.element-title::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #e73c3e;
+  border-radius: 1rem;
 }
 footer ul {
   padding: 0;
@@ -216,14 +227,24 @@ footer ul {
 footer ul li a {
   display: block;
   padding: 5px 0;
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 1px;
-  font-weight: 300;
+  font-weight: 400;
 }
 .footerabout h4 {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
   margin-bottom: 1rem;
+  position: relative;
+}
+.footerabout h4::before{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #e73c3e;
 }
 .footerabout p {
   font-size: 12px;
@@ -323,27 +344,28 @@ footer ul li a {
   }
 }
 /* Basic table styling */
-.table {
+table {
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
+  margin-bottom: 1rem;
 }
 
 /* Striped rows */
-.table tr:nth-child(even) {
+table tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
 /* Bordered table */
-.table,
-.table th,
-.table td {
+table,
+table th,
+table td {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
 /* Header styling */
-.table th {
+table th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
@@ -352,7 +374,7 @@ footer ul li a {
 }
 
 /* Optional: Hover effect */
-.table tr:hover {
+table tr:hover {
   background-color: #ddd;
 }
 
@@ -408,20 +430,31 @@ footer ul li a {
 }
 #policycontent h3{
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: 1rem;
   color: #e73c3e;
 }
-#policycontent h4{
-  font-size: 17px;
-  font-weight: 500;
+#policycontent h4, #policycontent h2{
+  font-size: 20px;
+  font-weight: 700;
   margin-bottom: 1rem;
   color: #e73c3e;
+  position: relative;
+}
+#policycontent h4::before, #policycontent h2::before{
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100px;
+  height: 2px;
+  border-radius: 1rem;
+  background-color: #e73c3e;
 }
 #policycontent p, #policycontent ul li, #policycontent ol li{
-  font-size: 14px;
-  font-weight: 300;
-  margin-bottom: 1.5rem;
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
 
 }
 

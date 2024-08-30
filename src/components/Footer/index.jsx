@@ -1,19 +1,26 @@
 import { Link } from 'react-router-dom'
 import trustimg from '../../assets/image/Trustpilot.png'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { base_url, headers } from '../../utils';
 import parse from 'html-react-parser';
 import logo from '../../assets/image/logo.png'
 const Footer = () => {
     const [disclaimer, setDisclaimer] = useState('...Loading');
+    const [copyright, setCopyright] = React.useState('...Loading');
     const get_disclaimer = async () => {
         await axios.get(`${base_url}api/disclaimer`, { headers: headers }).then((res) => {
             setDisclaimer(res.data.data);
         })
     }
+    const get_copyright = async () => {
+        await axios.get(`${base_url}api/policy/copyright`, { headers: headers }).then((res) => {
+            setCopyright(res.data.data);
+        })
+    }
     useEffect(() => {
         get_disclaimer();
+        get_copyright();
     }, []);
     return (
         <>
@@ -23,7 +30,7 @@ const Footer = () => {
                     <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-4">
                         <div className="w-full footerabout">
                             <div className="w-full mb-4">
-                                <img src={logo} alt="logo" className="max-w-[80%] invert-[1]"/>
+                                <img src={logo} alt="logo" className="max-w-[80%] invert-[1]" />
                             </div>
                             <h4>We re on a mission.</h4>
                             <p>
@@ -98,6 +105,9 @@ const Footer = () => {
                                 <li>
                                     <Link to={'/policy/marketing-advertising'}>Marketing and Advertising</Link>
                                 </li>
+                                <li>
+                                    <Link to={'/regulatory'}>Regulatory</Link>
+                                </li>
                             </ul>
                         </div>
 
@@ -113,10 +123,10 @@ const Footer = () => {
 
                 </div>
             </footer>
-            <div className="w-full py-3 bg-black text-white">
-                <p className='text-center text-sm text-blue-gray-400'>
-                    &copy; {new Date().getFullYear()} All Rights Reserved by <Link className=''>simple-credit.org</Link>
-                </p>
+            <div className="w-full py-5 text-center bg-black text-white">
+                <p className="text-sm">&copy; {new Date().getFullYear()} All Rights Reserved by simple-credit.org </p>
+                <div className="border-t border-white block w-full h-1"></div>
+                <div className='text-center text-sm' dangerouslySetInnerHTML={{ __html: copyright?.policy }}></div>
             </div>
         </>
     )

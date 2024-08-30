@@ -3,11 +3,8 @@ import { base_url, headers } from "../utils";
 import axios from "axios";
 
 const Documents = () => {
-    
     const [policy, setPolicy] = React.useState(null);
-
     const getPolicy = async () => {
-
         await axios.get(`${base_url}api/policy/documents`, { headers: headers }).then((resp) => {
             setPolicy(resp.data.data);
 
@@ -94,13 +91,13 @@ const Documents = () => {
                                 {
                                     policy && (
                                         <>
-                                        <div id="policycontent">
-                                        <div dangerouslySetInnerHTML={{ __html: policy?.policy }}></div>
-                                    </div>
+                                            <div id="policycontent">
+                                                <div dangerouslySetInnerHTML={{ __html: policy?.policy }}></div>
+                                            </div>
                                         </>
                                     )
                                 }
-                                
+
                             </div>
                         </div>
                     </div>

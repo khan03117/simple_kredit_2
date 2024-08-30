@@ -255,6 +255,13 @@ const Apply = () => {
                 }
                 errors.push(obj);
             }
+            if (fdata?.amount < 50000 || fdata?.amount > 2500000 ) {
+                let obj = {
+                    path: "amount",
+                    error: "Loan amount should be between 50000 to 2500000"
+                }
+                errors.push(obj);
+            }
         }
         if (pdetails.loan && !pdetails.bank) {
             if (!fdata.account_holder_name) {
